@@ -1,0 +1,27 @@
+<resources>
+    <string name="app_name">RakutenTV</string>
+    <string name="title_activity_lista_peliculas">ListaPeliculasActivity</string>
+    <string name="navigation_drawer_open">Open navigation drawer</string>
+    <string name="navigation_drawer_close">Close navigation drawer</string>
+    <string name="nav_header_nick">Jose</string>
+    <string name="nav_header_email">asdf@gmail.com</string>
+    <string name="nav_header_desc">Navigation header</string>
+    <string name="action_settings">Settings</string>
+
+    <!-- TODO: Remove or change this placeholder text -->
+    <string name="hello_blank_fragment">Hello blank fragment</string>
+
+
+    <!--Fragmento de visulizacion de pelilculas -->
+    <string name="infoFoto">Foto</string>
+    <string name="infoNombre">Foto</string>
+    <string name="infoAnio">Foto</string>
+    <string name="infoDirector">Foto</string>
+    <string name="infoGeneros">Foto</string>
+    <string name="infoEstudio">Foto</string>
+    <string name="infoScore">Foto</string>
+    <string name="infoSinopsis">Foto</string>
+    <string name="title_activity_info_peli">infoPeli</string>
+
+
+</resources>

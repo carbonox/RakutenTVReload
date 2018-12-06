@@ -1,0 +1,151 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:card_view="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:orientation="vertical"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@android:color/white"
+    android:id="@+id/framentoInfo">
+
+    <android.support.v7.widget.CardView
+        android:layout_width="match_parent"
+        android:layout_height="492dp"
+        android:layout_marginLeft="10dp"
+        android:layout_marginTop="10dp"
+        android:layout_marginRight="10dp"
+        card_view:cardBackgroundColor="#ece7e7">
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="273dp"
+            android:orientation="horizontal">
+
+            <ImageView
+                android:id="@+id/idImagen"
+                android:layout_width="163dp"
+                android:layout_height="252dp"
+                android:layout_marginLeft="10dp"
+                android:layout_marginTop="15dp"
+                android:layout_marginRight="10dp" />
+
+            <LinearLayout
+                android:layout_width="182dp"
+                android:layout_height="267dp"
+                android:orientation="vertical">
+
+                <TextView
+                    android:id="@+id/infoTitulo"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="10dp"
+                    android:text="@string/infoNombre"
+                    android:textSize="25sp"
+                    android:textStyle="bold" />
+
+                <TextView
+                    android:id="@+id/infoAnio"
+                    android:text="@string/infoAnio"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginRight="10dp"
+                    android:layout_marginBottom="15dp"/>
+
+                <TextView
+                    android:id="@+id/infoGeneros"
+                    android:text="@string/infoGeneros"
+                    android:layout_width="156dp"
+                    android:layout_height="97dp"
+                    android:layout_marginEnd="10dp"
+                    android:layout_marginBottom="15dp"/>
+
+                <TextView
+                    android:id="@+id/infoDirector"
+                    android:text="@string/infoDirector"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginEnd="10dp"
+                    android:layout_marginBottom="15dp"/>
+
+                <TextView
+                    android:id="@+id/infoEstudio"
+                    android:text="@string/infoEstudio"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"/>
+
+            </LinearLayout>
+
+        </LinearLayout>
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="215dp"
+            android:layout_gravity="bottom"
+            android:orientation="horizontal"
+            tools:orientation="vertical">
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="horizontal">
+
+                <LinearLayout
+                    android:layout_width="11dp"
+                    android:layout_height="match_parent"
+                    android:layout_weight="1"
+                    android:orientation="horizontal">
+
+                    <TextView
+                        android:id="@+id/Score"
+                        android:layout_width="14dp"
+                        android:layout_height="wrap_content"
+                        android:layout_weight="1"
+                        android:text="SCORE"
+                        android:textSize="18sp" />
+
+                    <TextView
+                        android:id="@+id/infoScore"
+                        android:text="@string/infoScore"
+                        android:layout_width="2dp"
+                        android:layout_height="wrap_content"
+                        android:layout_weight="1"
+                        android:textSize="30sp" />
+
+                </LinearLayout>
+
+                <Switch
+                    android:id="@+id/infoFav"
+                    android:layout_width="3dp"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="1"
+                    android:text="fav" />
+
+                <Button
+                    android:id="@+id/idBtnComprar"
+                    android:layout_width="9dp"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="1"
+                    android:text="COMPRAR" />
+            </LinearLayout>
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="167dp"
+                android:orientation="vertical">
+
+                <ScrollView
+                    android:id="@+id/infoSinopsis"
+                    android:text="@string/infoSinopsis"
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:layout_margin="10dp">
+
+                </ScrollView>
+            </LinearLayout>
+
+        </LinearLayout>
+
+    </android.support.v7.widget.CardView>
+
+
+</LinearLayout>
