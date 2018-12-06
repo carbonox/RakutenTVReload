@@ -6,7 +6,6 @@ import android.os.AsyncTask;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
 import android.support.v7.widget.GridLayoutManager;
-import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.util.Log;
 import android.view.LayoutInflater;
@@ -15,7 +14,6 @@ import android.view.ViewGroup;
 import android.widget.Toast;
 
 
-import com.example.misaki.rakutentv.MainActivity;
 import com.example.misaki.rakutentv.R;
 import com.example.misaki.rakutentv.adaptadores.AdaptadorPeliculasRV;
 import com.example.misaki.rakutentv.beans.Pelicula;
@@ -54,6 +52,7 @@ public class FragmentoListaPeliculas extends Fragment{
         Bundle args = new Bundle();
         fragment.setArguments(args);
         return fragment;
+
     }
 
     @Override
@@ -84,7 +83,7 @@ public class FragmentoListaPeliculas extends Fragment{
 //            @Override
 //            public void onItemClick(int position) {
 ////                final TextView tvHelp = (TextView) findViewById(R.id.infoAnio);
-//                Toast.makeText(FragmentoListaPeliculas.getInstance().getContext(), "Card View "+ listaPeliculas.get(position) ,Toast.LENGTH_SHORT).show();
+//                Toast.makeText(FragmentoListaPeliculasMisCompras.getInstance().getContext(), "Card View "+ listaPeliculas.get(position) ,Toast.LENGTH_SHORT).show();
 //
 //            }
 //        });

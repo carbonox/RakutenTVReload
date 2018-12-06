@@ -1,7 +1,6 @@
 package com.example.misaki.rakutentv;
 
 import android.net.Uri;
-import android.os.AsyncTask;
 import android.os.Bundle;
 import android.support.design.widget.NavigationView;
 import android.support.v4.app.FragmentManager;
@@ -10,28 +9,21 @@ import android.support.v4.widget.DrawerLayout;
 import android.support.v7.app.ActionBarDrawerToggle;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
-import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.widget.ListView;
-import android.widget.Toast;
 
 
 import com.example.misaki.rakutentv.adaptadores.AdaptadorPeliculasRV;
 import com.example.misaki.rakutentv.beans.Pelicula;
-import com.example.misaki.rakutentv.dataGlobal.RakutenTvData;
 import com.example.misaki.rakutentv.fragments.FragmentoInfoPelicula;
 import com.example.misaki.rakutentv.fragments.FragmentoListaPeliculas;
 import com.example.misaki.rakutentv.fragments.FragmentoListaPeliculasMisCompras;
 import com.example.misaki.rakutentv.fragments.FragmentoListaPeliculasMisFavoritos;
 import com.example.misaki.rakutentv.fragments.FragmentoListaPeliculasPopulares;
 import com.example.misaki.rakutentv.fragments.FragmentoListaPeliculasRanking;
-import com.example.misaki.rakutentv.tools.Post;
-
-import org.json.JSONArray;
 
 import java.util.ArrayList;
-import java.util.HashMap;
 
 public class MainActivity extends AppCompatActivity implements NavigationView.OnNavigationItemSelectedListener,
         FragmentoInfoPelicula.OnFragmentInteractionListener,
