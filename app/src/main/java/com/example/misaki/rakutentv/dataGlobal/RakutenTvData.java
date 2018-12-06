@@ -15,7 +15,7 @@ public class RakutenTvData {
 	private static Cliente cliente;
 	private static ArrayList<Pelicula> lstPelicula;
 	private static Pelicula peliculaSeleccionado;
-	private static String miIP = "192.168.2.153";
+	private static String miIP = "192.168.2.171";
 
 	public static Cliente getCliente() {
 		return cliente;

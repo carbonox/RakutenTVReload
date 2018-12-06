@@ -17,10 +17,10 @@ import android.widget.ListView;
 import android.widget.Toast;
 
 
-
 import com.example.misaki.rakutentv.adaptadores.AdaptadorPeliculasRV;
 import com.example.misaki.rakutentv.beans.Pelicula;
 import com.example.misaki.rakutentv.dataGlobal.RakutenTvData;
+import com.example.misaki.rakutentv.fragments.FragmentoInfoPelicula;
 import com.example.misaki.rakutentv.fragments.FragmentoListaPeliculas;
 import com.example.misaki.rakutentv.fragments.FragmentoListaPeliculasMisCompras;
 import com.example.misaki.rakutentv.fragments.FragmentoListaPeliculasMisFavoritos;
@@ -34,11 +34,17 @@ import java.util.ArrayList;
 import java.util.HashMap;
 
 public class MainActivity extends AppCompatActivity implements NavigationView.OnNavigationItemSelectedListener,
-        FragmentoListaPeliculas.OnFragmentInteractionListener {
+        FragmentoInfoPelicula.OnFragmentInteractionListener,
+        FragmentoListaPeliculas.OnFragmentInteractionListener,
+        FragmentoListaPeliculasMisCompras.OnFragmentInteractionListener,
+        FragmentoListaPeliculasMisFavoritos.OnFragmentInteractionListener,
+        FragmentoListaPeliculasPopulares.OnFragmentInteractionListener,
+        FragmentoListaPeliculasRanking.OnFragmentInteractionListener {
 
     private ArrayList<Pelicula> m_peliculas = new ArrayList<Pelicula>();
     private AdaptadorPeliculasRV adaptadorPeliculas;
     private ListView lv;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
