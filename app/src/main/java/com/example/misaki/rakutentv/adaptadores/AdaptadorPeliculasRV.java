@@ -84,7 +84,7 @@ public class AdaptadorPeliculasRV extends RecyclerView.Adapter<AdaptadorPelicula
             super(itemView);
             cardView = (CardView) itemView.findViewById(R.id.cardview_id);
             txtNombre = (TextView) itemView.findViewById(R.id.film_title_id);
-            foto = (ImageView) itemView.findViewById(R.id.idImagen);
+            foto = (ImageView) itemView.findViewById(R.id.film_img_id);
         }
     }
 

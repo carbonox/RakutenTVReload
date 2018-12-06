@@ -52,14 +52,6 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
         Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
 
-//        FloatingActionButton fab = (FloatingActionButton) findViewById(R.id.fab);
-//        fab.setOnClickListener(new View.OnClickListener() {
-//            @Override
-//            public void onClick(View view) {
-//                Snackbar.make(view, "Replace with your own action", Snackbar.LENGTH_LONG)
-//                        .setAction("Action", null).show();
-//            }
-//        });
 
 
         DrawerLayout drawer = (DrawerLayout) findViewById(R.id.drawer_layout);
@@ -139,59 +131,5 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
     }
 
 
-//    class TareaSegundoPlano extends AsyncTask<String, Integer, Boolean> {
-//        private ArrayList<Pelicula> listaPeliculas = null;
-//        private HashMap<String, String> parametros = null;
-//
-//
-//        public TareaSegundoPlano(HashMap<String, String> parametros) {
-//            this.parametros = parametros;
-//        }
-//
-//        /*
-//         * doInBackground().
-//         * Contendrá el código principal de nuestra tarea.
-//         * */
-//        @Override
-//        protected Boolean doInBackground(String... params) {
-//            // URL
-//            String url_select = params[0];
-//            try {
-//                Post post = new Post();
-//
-//                JSONArray result = post.getServerDataPost(parametros, url_select);
-//                listaPeliculas = Pelicula.getArrayListFromJSon(result);
-//            } catch (Exception e) {
-//                Log.e("log_tag", "Error in http connection " + e.toString());
-//                //messageUser = "Error al conectar con el servidor. ";
-//            }
-//
-//            return true;
-//        }
-//
-//        /*
-//         * onPostExecute().
-//         * Se ejecutará cuando finalice nuestra tarea, o dicho de otra forma,
-//         * tras la finalización del método doInBackground().
-//         * */
-//        @Override
-//        protected void onPostExecute(Boolean resp) {
-//            try {
-//                if (resp && listaPeliculas != null && listaPeliculas.size() > 0) {
-//                    for (Pelicula pelicula : listaPeliculas) {
-//                        pelicula.setFoto("http://" + RakutenTvData.getMiIP() + ":8080/RakutenTV/" + pelicula.getFoto());
-//                    }
-//                    adaptadorPeliculas = new AdaptadorPeliculasRV(getBaseContext(), listaPeliculas);
-//                    lv.setAdapter(adaptadorPeliculas);
-//                } else {
-////                    Toast.makeText(ListaPeliculasActivity.getInstance().getBaseContext(), "" +
-////                            "Lista incorrecta. ", Toast.LENGTH_SHORT).show();
-//                }
-//            } catch (Exception e) {
-//                // TODO: handle exception
-//                Log.e("log_tag", "Error parsing data " + e.toString());
-//            }
-//        }
-//    }
 
 }
