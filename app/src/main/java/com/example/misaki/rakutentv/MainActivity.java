@@ -17,10 +17,15 @@ import android.widget.ListView;
 import android.widget.Toast;
 
 
-import com.example.misaki.rakutentv.adaptadores.AdaptadorPeliculas;
+
+import com.example.misaki.rakutentv.adaptadores.AdaptadorPeliculasRV;
 import com.example.misaki.rakutentv.beans.Pelicula;
 import com.example.misaki.rakutentv.dataGlobal.RakutenTvData;
 import com.example.misaki.rakutentv.fragments.FragmentoListaPeliculas;
+import com.example.misaki.rakutentv.fragments.FragmentoListaPeliculasMisCompras;
+import com.example.misaki.rakutentv.fragments.FragmentoListaPeliculasMisFavoritos;
+import com.example.misaki.rakutentv.fragments.FragmentoListaPeliculasPopulares;
+import com.example.misaki.rakutentv.fragments.FragmentoListaPeliculasRanking;
 import com.example.misaki.rakutentv.tools.Post;
 
 import org.json.JSONArray;
@@ -32,7 +37,7 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
         FragmentoListaPeliculas.OnFragmentInteractionListener {
 
     private ArrayList<Pelicula> m_peliculas = new ArrayList<Pelicula>();
-    private AdaptadorPeliculas adaptadorPeliculas;
+    private AdaptadorPeliculasRV adaptadorPeliculas;
     private ListView lv;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -104,15 +109,15 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
         if (id == R.id.nav_inicio) {
             fragmentManager.beginTransaction().replace(R.id.contenedor, new FragmentoListaPeliculas()).commit();
         } else if (id == R.id.nav_polulares) {
-            fragmentManager.beginTransaction().replace(R.id.contenedor, new Fragmento02()).commit();
+            fragmentManager.beginTransaction().replace(R.id.contenedor, new FragmentoListaPeliculasPopulares()).commit();
         } else if (id == R.id.nav_ranking) {
-            fragmentManager.beginTransaction().replace(R.id.contenedor, new Fragmento03()).commit();
+            fragmentManager.beginTransaction().replace(R.id.contenedor, new FragmentoListaPeliculasRanking()).commit();
         } else if (id == R.id.nav_ranking) {
-            fragmentManager.beginTransaction().replace(R.id.contenedor, new Fragmento04()).commit();
+            fragmentManager.beginTransaction().replace(R.id.contenedor, new FragmentoListaPeliculasRanking()).commit();
         } else if (id == R.id.nav_fabs) {
-            fragmentManager.beginTransaction().replace(R.id.contenedor, new Fragmento05()).commit();
+            fragmentManager.beginTransaction().replace(R.id.contenedor, new FragmentoListaPeliculasMisFavoritos()).commit();
         } else if (id == R.id.nav_compras) {
-            fragmentManager.beginTransaction().replace(R.id.contenedor, new Fragmento06()).commit();
+            fragmentManager.beginTransaction().replace(R.id.contenedor, new FragmentoListaPeliculasMisCompras()).commit();
 
         }
 
@@ -127,59 +132,59 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
     }
 
 
-    class TareaSegundoPlano extends AsyncTask<String, Integer, Boolean> {
-        private ArrayList<Pelicula> listaPeliculas = null;
-        private HashMap<String, String> parametros = null;
-
-
-        public TareaSegundoPlano(HashMap<String, String> parametros) {
-            this.parametros = parametros;
-        }
-
-        /*
-         * doInBackground().
-         * Contendrá el código principal de nuestra tarea.
-         * */
-        @Override
-        protected Boolean doInBackground(String... params) {
-            // URL
-            String url_select = params[0];
-            try {
-                Post post = new Post();
-
-                JSONArray result = post.getServerDataPost(parametros, url_select);
-                listaPeliculas = Pelicula.getArrayListFromJSon(result);
-            } catch (Exception e) {
-                Log.e("log_tag", "Error in http connection " + e.toString());
-                //messageUser = "Error al conectar con el servidor. ";
-            }
-
-            return true;
-        }
-
-        /*
-         * onPostExecute().
-         * Se ejecutará cuando finalice nuestra tarea, o dicho de otra forma,
-         * tras la finalización del método doInBackground().
-         * */
-        @Override
-        protected void onPostExecute(Boolean resp) {
-            try {
-                if (resp && listaPeliculas != null && listaPeliculas.size() > 0) {
-                    for (Pelicula pelicula : listaPeliculas) {
-                        pelicula.setFoto("http://" + RakutenTvData.getMiIP() + ":8080/RakutenTV/" + pelicula.getFoto());
-                    }
-                    adaptadorPeliculas = new AdaptadorPeliculas(getBaseContext(), listaPeliculas);
-                    lv.setAdapter(adaptadorPeliculas);
-                } else {
-                    Toast.makeText(ListaPeliculasActivity.getInstance().getBaseContext(), "" +
-                            "Lista incorrecta. ", Toast.LENGTH_SHORT).show();
-                }
-            } catch (Exception e) {
-                // TODO: handle exception
-                Log.e("log_tag", "Error parsing data " + e.toString());
-            }
-        }
-    }
+//    class TareaSegundoPlano extends AsyncTask<String, Integer, Boolean> {
+//        private ArrayList<Pelicula> listaPeliculas = null;
+//        private HashMap<String, String> parametros = null;
+//
+//
+//        public TareaSegundoPlano(HashMap<String, String> parametros) {
+//            this.parametros = parametros;
+//        }
+//
+//        /*
+//         * doInBackground().
+//         * Contendrá el código principal de nuestra tarea.
+//         * */
+//        @Override
+//        protected Boolean doInBackground(String... params) {
+//            // URL
+//            String url_select = params[0];
+//            try {
+//                Post post = new Post();
+//
+//                JSONArray result = post.getServerDataPost(parametros, url_select);
+//                listaPeliculas = Pelicula.getArrayListFromJSon(result);
+//            } catch (Exception e) {
+//                Log.e("log_tag", "Error in http connection " + e.toString());
+//                //messageUser = "Error al conectar con el servidor. ";
+//            }
+//
+//            return true;
+//        }
+//
+//        /*
+//         * onPostExecute().
+//         * Se ejecutará cuando finalice nuestra tarea, o dicho de otra forma,
+//         * tras la finalización del método doInBackground().
+//         * */
+//        @Override
+//        protected void onPostExecute(Boolean resp) {
+//            try {
+//                if (resp && listaPeliculas != null && listaPeliculas.size() > 0) {
+//                    for (Pelicula pelicula : listaPeliculas) {
+//                        pelicula.setFoto("http://" + RakutenTvData.getMiIP() + ":8080/RakutenTV/" + pelicula.getFoto());
+//                    }
+//                    adaptadorPeliculas = new AdaptadorPeliculasRV(getBaseContext(), listaPeliculas);
+//                    lv.setAdapter(adaptadorPeliculas);
+//                } else {
+////                    Toast.makeText(ListaPeliculasActivity.getInstance().getBaseContext(), "" +
+////                            "Lista incorrecta. ", Toast.LENGTH_SHORT).show();
+//                }
+//            } catch (Exception e) {
+//                // TODO: handle exception
+//                Log.e("log_tag", "Error parsing data " + e.toString());
+//            }
+//        }
+//    }
 
 }

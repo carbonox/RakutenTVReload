@@ -8,7 +8,8 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 
-import com.rakutentv.R;
+import com.example.misaki.rakutentv.R;
+
 
 /**
  * A simple {@link Fragment} subclass.

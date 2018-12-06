@@ -13,12 +13,12 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Toast;
 
-import com.rakutentv.ListaPeliculasActivity;
-import com.rakutentv.R;
-import com.rakutentv.adaptadores.AdaptadorPeliculasRV;
-import com.rakutentv.beans.Pelicula;
-import com.rakutentv.dataGlobal.RakutenTvData;
-import com.rakutentv.tools.Post;
+
+import com.example.misaki.rakutentv.R;
+import com.example.misaki.rakutentv.adaptadores.AdaptadorPeliculasRV;
+import com.example.misaki.rakutentv.beans.Pelicula;
+import com.example.misaki.rakutentv.dataGlobal.RakutenTvData;
+import com.example.misaki.rakutentv.tools.Post;
 
 import org.json.JSONArray;
 
@@ -86,7 +86,7 @@ public class FragmentoListaPeliculasMisFavoritos extends Fragment {
         View vista=inflater.inflate(R.layout.fragment_fragmento_lista_peliculas, container, false);
 
         listaPeliculas=new ArrayList<>();
-        recyclerPeliculas= (RecyclerView) vista.findViewById(R.id.recyclerListaPeliculas);
+        recyclerPeliculas= (RecyclerView) vista.findViewById(R.id.recyclerview_id);
         recyclerPeliculas.setLayoutManager(new LinearLayoutManager(getContext()));
 
 //        llenarLista();
@@ -191,8 +191,8 @@ public class FragmentoListaPeliculasMisFavoritos extends Fragment {
                     recyclerPeliculas.setAdapter(adaptadorPeliculasRV);
 
                 } else {
-                    Toast.makeText(ListaPeliculasActivity.getInstance().getBaseContext(), "" +
-                            "Lista incorrecta. ", Toast.LENGTH_SHORT).show();
+//                    Toast.makeText(ListaPeliculasActivity.getInstance().getBaseContext(), "" +
+//                            "Lista incorrecta. ", Toast.LENGTH_SHORT).show();
                 }
             } catch (Exception e) {
                 // TODO: handle exception

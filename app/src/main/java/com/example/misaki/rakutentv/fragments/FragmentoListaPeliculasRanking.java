@@ -86,7 +86,7 @@ public class FragmentoListaPeliculasRanking extends Fragment {
         View vista=inflater.inflate(R.layout.fragment_fragmento_lista_peliculas, container, false);
 
         listaPeliculas=new ArrayList<>();
-        recyclerPeliculas= (RecyclerView) vista.findViewById(R.id.recyclerListaPeliculas);
+        recyclerPeliculas= (RecyclerView) vista.findViewById(R.id.recyclerview_id);
         recyclerPeliculas.setLayoutManager(new LinearLayoutManager(getContext()));
 
 //        llenarLista();
@@ -190,8 +190,8 @@ public class FragmentoListaPeliculasRanking extends Fragment {
                     recyclerPeliculas.setAdapter(adaptadorPeliculasRV);
 
                 } else {
-                    Toast.makeText(ListaPeliculasActivity.getInstance().getBaseContext(), "" +
-                            "Lista incorrecta. ", Toast.LENGTH_SHORT).show();
+//                    Toast.makeText(ListaPeliculasActivity.getInstance().getBaseContext(), "" +
+//                            "Lista incorrecta. ", Toast.LENGTH_SHORT).show();
                 }
             } catch (Exception e) {
                 // TODO: handle exception

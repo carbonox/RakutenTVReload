@@ -3,10 +3,11 @@ package com.example.misaki.rakutentv.threads;
 import android.os.Handler;
 import android.widget.Toast;
 
-import com.rakutentv.LoginActivity;
-import com.rakutentv.beans.Cliente;
-import com.rakutentv.dataGlobal.RakutenTvData;
-import com.rakutentv.tools.Post;
+
+import com.example.misaki.rakutentv.LoginActivity;
+import com.example.misaki.rakutentv.beans.Cliente;
+import com.example.misaki.rakutentv.dataGlobal.RakutenTvData;
+import com.example.misaki.rakutentv.tools.Post;
 
 import org.json.JSONArray;
 
