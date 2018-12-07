@@ -1,9 +1,11 @@
 package com.example.misaki.rakutentv.adaptadores;
 
-import android.content.Intent;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
 import android.os.AsyncTask;
+import android.os.Bundle;
+import android.support.v4.app.FragmentManager;
+import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.CardView;
 import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
@@ -12,12 +14,13 @@ import android.view.ViewGroup;
 import android.widget.ImageView;
 import android.widget.TextView;
 
-
 import com.example.misaki.rakutentv.R;
 import com.example.misaki.rakutentv.beans.Pelicula;
+import com.example.misaki.rakutentv.fragments.FragmentoInfoPelicula;
 
 import java.io.IOException;
 import java.io.InputStream;
+import java.io.Serializable;
 import java.lang.ref.WeakReference;
 import java.net.HttpURLConnection;
 import java.net.URL;
@@ -51,21 +54,19 @@ public class AdaptadorPeliculasRV extends RecyclerView.Adapter<AdaptadorPelicula
         if (holder.foto != null) {
             new AdaptadorPeliculasRV.BitmapWorkerTask(holder.foto).execute(pelicula.getFoto());
         }
-//        holder.cardView.setOnClickListener(new View.OnClickListener() {
-//            @Override
-//            public void onClick(View v) {
-//
-//                Intent intent = new Intent(mContext, Book_Activity.class);
-//
-//                // passing data to the book activity
-//                intent.putExtra("Title", mData.get(position).getTitle());
-//                intent.putExtra("Description", mData.get(position).getDescription());
-//                intent.putExtra("Thumbnail", mData.get(position).getThumbnail());
-//                // start the activity
-//                mContext.startActivity(intent);
-//
-//            }
-//        });
+
+        holder.cardView.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Bundle args  = new Bundle();
+                args .putSerializable("PELI", (Serializable) listaPeliculas.get(position));
+                AppCompatActivity activity = (AppCompatActivity) v.getContext();
+                FragmentoInfoPelicula fragmentoInfoPelicula = new FragmentoInfoPelicula();
+                fragmentoInfoPelicula.setArguments(args );
+                activity.getSupportFragmentManager().beginTransaction().replace(R.id.contenedor, fragmentoInfoPelicula).addToBackStack(null).commit();
+
+            }
+        });
 
 
     }

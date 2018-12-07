@@ -2,54 +2,62 @@ package com.example.misaki.rakutentv.fragments;
 
 import android.content.Context;
 import android.net.Uri;
+import android.os.AsyncTask;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
+import android.support.v7.widget.GridLayoutManager;
+import android.support.v7.widget.RecyclerView;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.Button;
+import android.widget.ImageView;
+import android.widget.ScrollView;
+import android.widget.Switch;
+import android.widget.TextView;
+import android.widget.Toast;
+
 
 import com.example.misaki.rakutentv.R;
+import com.example.misaki.rakutentv.adaptadores.AdaptadorPeliculasRV;
+import com.example.misaki.rakutentv.beans.Pelicula;
+import com.example.misaki.rakutentv.dataGlobal.RakutenTvData;
+import com.example.misaki.rakutentv.tools.Post;
+
+import org.json.JSONArray;
+
+import java.util.ArrayList;
+import java.util.HashMap;
+
+public class FragmentoInfoPelicula extends Fragment{
 
 
-/**
- * A simple {@link Fragment} subclass.
- * Activities that contain this fragment must implement the
- * {@link FragmentoInfoPelicula.OnFragmentInteractionListener} interface
- * to handle interaction events.
- * Use the {@link FragmentoInfoPelicula#newInstance} factory method to
- * create an instance of this fragment.
- */
-public class FragmentoInfoPelicula extends Fragment {
-    // TODO: Rename parameter arguments, choose names that match
-    // the fragment initialization parameters, e.g. ARG_ITEM_NUMBER
-    private static final String ARG_PARAM1 = "param1";
-    private static final String ARG_PARAM2 = "param2";
+    private static FragmentoInfoPelicula fragmentoInfoPelicula;
 
-    // TODO: Rename and change types of parameters
-    private String mParam1;
-    private String mParam2;
+    public static FragmentoInfoPelicula getInstance() {
+        return fragmentoInfoPelicula;
+    }
 
     private OnFragmentInteractionListener mListener;
+
+    ImageView imageViewFoto;
+    TextView txtTitulo, txtAnio, txtGenero, txtDirector, txtEstudio, txtScore;
+    ScrollView scrollViewSinopsis;
+    Switch switchFav;
+    Button btnComprar;
+    Pelicula pelicula;
+
+
 
     public FragmentoInfoPelicula() {
         // Required empty public constructor
     }
 
 
-    /**
-     * Use this factory method to create a new instance of
-     * this fragment using the provided parameters.
-     *
-     * @param param1 Parameter 1.
-     * @param param2 Parameter 2.
-     * @return A new instance of fragment FragmentoInfoPelicula.
-     */
-    // TODO: Rename and change types and number of parameters
-    public static FragmentoInfoPelicula newInstance(String param1, String param2) {
+    public static FragmentoInfoPelicula newInstance() {
         FragmentoInfoPelicula fragment = new FragmentoInfoPelicula();
         Bundle args = new Bundle();
-        args.putString(ARG_PARAM1, param1);
-        args.putString(ARG_PARAM2, param2);
         fragment.setArguments(args);
         return fragment;
     }
@@ -57,20 +65,36 @@ public class FragmentoInfoPelicula extends Fragment {
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        if (getArguments() != null) {
-            mParam1 = getArguments().getString(ARG_PARAM1);
-            mParam2 = getArguments().getString(ARG_PARAM2);
-        }
-
+        pelicula = (Pelicula) savedInstanceState.getSerializable("PELI");
     }
-
-
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
-        // Inflate the layout for this fragment
-        return inflater.inflate(R.layout.fragment_fragmento_info_pelicula, container, false);
+        View vista=inflater.inflate(R.layout.fragment_fragmento_info_pelicula, container, false);
+
+        imageViewFoto = (ImageView) vista.findViewById(R.id.idImagen);
+        scrollViewSinopsis = (ScrollView) vista.findViewById(R.id.infoSinopsis);
+        btnComprar = (Button) vista.findViewById(R.id.idBtnComprar);
+        switchFav = (Switch) vista.findViewById(R.id.infoFav);
+
+        txtAnio = (TextView) vista.findViewById(R.id.infoAnio);
+        txtDirector = (TextView) vista.findViewById(R.id.infoDirector);
+        txtEstudio = (TextView) vista.findViewById(R.id.infoEstudio);
+        txtGenero = (TextView) vista.findViewById(R.id.infoGeneros);
+        txtScore = (TextView) vista.findViewById(R.id.infoScore);
+        txtTitulo = (TextView) vista.findViewById(R.id.infoTitulo);
+
+        imageViewFoto.setImageURI(Uri.parse(pelicula.getFoto()));
+        txtTitulo.setText(pelicula.getTitulo());
+        txtScore.setText(pelicula.getPuntuacion());
+        txtGenero.setText(pelicula.getGenero());
+        txtEstudio.setText(pelicula.getEstudio());
+        txtDirector.setText(pelicula.getDirector());
+        txtAnio.setText(pelicula.getAnio());
+        return vista;
     }
+
+
 
     // TODO: Rename method, update argument and hook method into UI event
     public void onButtonPressed(Uri uri) {
@@ -85,8 +109,7 @@ public class FragmentoInfoPelicula extends Fragment {
         if (context instanceof OnFragmentInteractionListener) {
             mListener = (OnFragmentInteractionListener) context;
         } else {
-            throw new RuntimeException(context.toString()
-                    + " must implement OnFragmentInteractionListener");
+            throw new RuntimeException(context.toString() + " añadir OnFragmentInteractionListener");
         }
     }
 
@@ -96,18 +119,13 @@ public class FragmentoInfoPelicula extends Fragment {
         mListener = null;
     }
 
-    /**
-     * This interface must be implemented by activities that contain this
-     * fragment to allow an interaction in this fragment to be communicated
-     * to the activity and potentially other fragments contained in that
-     * activity.
-     * <p>
-     * See the Android Training lesson <a href=
-     * "http://developer.android.com/training/basics/fragments/communicating.html"
-     * >Communicating with Other Fragments</a> for more information.
-     */
+
+
     public interface OnFragmentInteractionListener {
         // TODO: Update argument type and name
         void onFragmentInteraction(Uri uri);
     }
+
+
+
 }

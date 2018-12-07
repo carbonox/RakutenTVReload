@@ -66,7 +66,7 @@ public class FragmentoListaPeliculas extends Fragment{
 
         listaPeliculas=new ArrayList<>();
         recyclerPeliculas= (RecyclerView) vista.findViewById(R.id.recyclerview_id);
-        recyclerPeliculas.setLayoutManager(new GridLayoutManager(getContext(),3));
+        recyclerPeliculas.setLayoutManager(new GridLayoutManager(getContext(),3 ,0, false));
 
 
         HashMap<String, String> parametros = new HashMap<String, String>();

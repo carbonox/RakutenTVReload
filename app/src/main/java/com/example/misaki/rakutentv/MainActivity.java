@@ -109,7 +109,6 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
             fragmentManager.beginTransaction().replace(R.id.contenedor, new FragmentoListaPeliculasMisFavoritos()).commit();
         } else if (id == R.id.nav_compras) {
             fragmentManager.beginTransaction().replace(R.id.contenedor, new FragmentoListaPeliculasMisCompras()).commit();
-
         }
 
         DrawerLayout drawer = (DrawerLayout) findViewById(R.id.drawer_layout);

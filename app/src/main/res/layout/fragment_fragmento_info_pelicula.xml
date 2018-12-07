@@ -39,13 +39,13 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_marginTop="10dp"
-                    android:text="@string/infoNombre"
+                    android:text="Koe no Katachi"
                     android:textSize="25sp"
                     android:textStyle="bold" />
 
                 <TextView
                     android:id="@+id/infoAnio"
-                    android:text="@string/infoAnio"
+                    android:text="2016"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_marginRight="10dp"
@@ -53,7 +53,7 @@
 
                 <TextView
                     android:id="@+id/infoGeneros"
-                    android:text="@string/infoGeneros"
+                    android:text="Drama"
                     android:layout_width="156dp"
                     android:layout_height="97dp"
                     android:layout_marginEnd="10dp"
@@ -61,7 +61,7 @@
 
                 <TextView
                     android:id="@+id/infoDirector"
-                    android:text="@string/infoDirector"
+                    android:text="Ni Idea"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:layout_marginEnd="10dp"
@@ -69,7 +69,7 @@
 
                 <TextView
                     android:id="@+id/infoEstudio"
-                    android:text="@string/infoEstudio"
+                    android:text="Kyoto Animation"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"/>
 
@@ -105,7 +105,7 @@
 
                     <TextView
                         android:id="@+id/infoScore"
-                        android:text="@string/infoScore"
+                        android:text="6"
                         android:layout_width="2dp"
                         android:layout_height="wrap_content"
                         android:layout_weight="1"
@@ -135,7 +135,7 @@
 
                 <ScrollView
                     android:id="@+id/infoSinopsis"
-                    android:text="@string/infoSinopsis"
+                    android:text="Un slgo que no se lo que hago"
                     android:layout_width="match_parent"
                     android:layout_height="match_parent"
                     android:layout_margin="10dp">
