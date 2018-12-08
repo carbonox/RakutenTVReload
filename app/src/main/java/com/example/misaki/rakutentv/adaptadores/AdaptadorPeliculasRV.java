@@ -16,6 +16,7 @@ import android.widget.TextView;
 
 import com.example.misaki.rakutentv.R;
 import com.example.misaki.rakutentv.beans.Pelicula;
+import com.example.misaki.rakutentv.dataGlobal.RakutenTvData;
 import com.example.misaki.rakutentv.fragments.FragmentoInfoPelicula;
 
 import java.io.IOException;
@@ -58,13 +59,14 @@ public class AdaptadorPeliculasRV extends RecyclerView.Adapter<AdaptadorPelicula
         holder.cardView.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Bundle args  = new Bundle();
-                args .putSerializable("PELI", (Serializable) listaPeliculas.get(position));
+//                Bundle args  = new Bundle();
+//                args .putSerializable("PELI", (Serializable) listaPeliculas.get(position));
+                RakutenTvData.setPeliculaSeleccionado(listaPeliculas.get(position));
                 AppCompatActivity activity = (AppCompatActivity) v.getContext();
                 FragmentoInfoPelicula fragmentoInfoPelicula = new FragmentoInfoPelicula();
-                fragmentoInfoPelicula.setArguments(args);
-                activity.getSupportFragmentManager().beginTransaction().replace(R.id.contenedor, fragmentoInfoPelicula).commit();
-//                activity.getSupportFragmentManager().beginTransaction().replace(R.id.contenedor, fragmentoInfoPelicula).addToBackStack(null).commit();
+//                fragmentoInfoPelicula.setArguments(args);
+//                activity.getSupportFragmentManager().beginTransaction().replace(R.id.contenedor, fragmentoInfoPelicula).commit();
+                activity.getSupportFragmentManager().beginTransaction().replace(R.id.contenedor, fragmentoInfoPelicula).addToBackStack(null).commit();
 
             }
         });

@@ -1,34 +1,31 @@
 package com.example.misaki.rakutentv.fragments;
 
 import android.content.Context;
+import android.graphics.Bitmap;
+import android.graphics.BitmapFactory;
 import android.net.Uri;
 import android.os.AsyncTask;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
-import android.support.v7.widget.GridLayoutManager;
-import android.support.v7.widget.RecyclerView;
-import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
 import android.widget.ImageView;
-import android.widget.ScrollView;
 import android.widget.Switch;
 import android.widget.TextView;
-import android.widget.Toast;
-
 
 import com.example.misaki.rakutentv.R;
 import com.example.misaki.rakutentv.adaptadores.AdaptadorPeliculasRV;
 import com.example.misaki.rakutentv.beans.Pelicula;
 import com.example.misaki.rakutentv.dataGlobal.RakutenTvData;
-import com.example.misaki.rakutentv.tools.Post;
 
-import org.json.JSONArray;
-
-import java.util.ArrayList;
-import java.util.HashMap;
+import java.io.IOException;
+import java.io.InputStream;
+import java.lang.ref.WeakReference;
+import java.net.HttpURLConnection;
+import java.net.URL;
+import java.net.URLConnection;
 
 public class FragmentoInfoPelicula extends Fragment{
 
@@ -42,8 +39,7 @@ public class FragmentoInfoPelicula extends Fragment{
     private OnFragmentInteractionListener mListener;
 
     ImageView imageViewFoto;
-    TextView txtTitulo, txtAnio, txtGenero, txtDirector, txtEstudio, txtScore;
-    ScrollView scrollViewSinopsis;
+    TextView txtTitulo, txtAnio, txtGenero, txtDirector, txtEstudio, txtScore, txtSinopsis;
     Switch switchFav;
     Button btnComprar;
     Pelicula pelicula;
@@ -69,13 +65,13 @@ public class FragmentoInfoPelicula extends Fragment{
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
-            pelicula.setDirector(savedInstanceState.getSerializable("PELI").toString());
+//            pelicula.setDirector(savedInstanceState.getSerializable("PELI").toString());
 
+        pelicula = RakutenTvData.getPeliculaSeleccionado();
 
         View vista=inflater.inflate(R.layout.fragment_fragmento_info_pelicula, container, false);
 
         imageViewFoto = (ImageView) vista.findViewById(R.id.idImagen);
-        scrollViewSinopsis = (ScrollView) vista.findViewById(R.id.infoSinopsis);
         btnComprar = (Button) vista.findViewById(R.id.idBtnComprar);
         switchFav = (Switch) vista.findViewById(R.id.infoFav);
 
@@ -85,14 +81,17 @@ public class FragmentoInfoPelicula extends Fragment{
         txtGenero = (TextView) vista.findViewById(R.id.infoGeneros);
         txtScore = (TextView) vista.findViewById(R.id.infoScore);
         txtTitulo = (TextView) vista.findViewById(R.id.infoTitulo);
+        txtSinopsis = (TextView) vista.findViewById(R.id.infoSinopsis);
 
         imageViewFoto.setImageURI(Uri.parse(pelicula.getFoto()));
+        new FragmentoInfoPelicula.BitmapWorkerTask(imageViewFoto).execute(pelicula.getFoto());
+
         txtTitulo.setText(pelicula.getTitulo());
-        txtScore.setText(pelicula.getPuntuacion());
-        txtGenero.setText(pelicula.getGenero());
+        txtScore.setText(String.valueOf(pelicula.getPuntuacion()));
+        txtGenero.setText(pelicula.getGenero().replace(" ", "\n"));
         txtEstudio.setText(pelicula.getEstudio());
         txtDirector.setText(pelicula.getDirector());
-        txtAnio.setText(pelicula.getAnio());
+        txtAnio.setText(String.valueOf(pelicula.getAnio()));
         return vista;
     }
 
@@ -128,6 +127,63 @@ public class FragmentoInfoPelicula extends Fragment{
         void onFragmentInteraction(Uri uri);
     }
 
+    class BitmapWorkerTask extends AsyncTask<String, Void, Bitmap> {
+        private final WeakReference<ImageView> imageViewReference;
+        private String imageUrl;
 
+        public BitmapWorkerTask(ImageView imageView) {
+            // Use a WeakReference to ensure the ImageView can be garbage
+            // collected
+            imageViewReference = new WeakReference<ImageView>(imageView);
+        }
+
+        // Decode image in background.
+        @Override
+        protected Bitmap doInBackground(String... params) {
+            imageUrl = params[0];
+            return loadImage(imageUrl);
+        }
+
+        // Once complete, see if ImageView is still around and set bitmap.
+        @Override
+        protected void onPostExecute(Bitmap bitmap) {
+            if (imageViewReference != null && bitmap != null) {
+                final ImageView imageView = imageViewReference.get();
+                if (imageView != null) {
+                    imageView.setImageBitmap(bitmap);
+                }
+            }
+        }
+
+        private Bitmap loadImage(String URL) {
+            Bitmap bitmap = null;
+            InputStream in = null;
+            try {
+                in = openHttpConnection(URL);
+                bitmap = BitmapFactory.decodeStream(in);
+                in.close();
+            } catch (IOException e1) {
+            }
+            return bitmap;
+        }
+
+        private InputStream openHttpConnection(String strURL) throws IOException {
+            InputStream inputStream = null;
+            URL url = new URL(strURL);
+            URLConnection conn = url.openConnection();
+
+            try {
+                HttpURLConnection httpConn = (HttpURLConnection) conn;
+                httpConn.setRequestMethod("GET");
+                httpConn.connect();
+
+                if (httpConn.getResponseCode() == HttpURLConnection.HTTP_OK) {
+                    inputStream = httpConn.getInputStream();
+                }
+            } catch (Exception ex) {
+            }
+            return inputStream;
+        }
+    }
 
 }
