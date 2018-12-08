@@ -73,7 +73,7 @@ public class FragmentoInfoPelicula extends Fragment{
 
         imageViewFoto = (ImageView) vista.findViewById(R.id.idImagen);
         btnComprar = (Button) vista.findViewById(R.id.idBtnComprar);
-        switchFav = (Switch) vista.findViewById(R.id.infoFav);
+//        switchFav = (Switch) vista.findViewById(R.id.infoFav);
 
         txtAnio = (TextView) vista.findViewById(R.id.infoAnio);
         txtDirector = (TextView) vista.findViewById(R.id.infoDirector);
@@ -91,6 +91,7 @@ public class FragmentoInfoPelicula extends Fragment{
         txtGenero.setText(pelicula.getGenero().replace(" ", "\n"));
         txtEstudio.setText(pelicula.getEstudio());
         txtDirector.setText(pelicula.getDirector());
+        txtSinopsis.setText(pelicula.getSinopsis());
         txtAnio.setText(String.valueOf(pelicula.getAnio()));
         return vista;
     }
