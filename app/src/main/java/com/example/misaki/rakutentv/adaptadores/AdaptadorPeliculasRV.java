@@ -62,8 +62,9 @@ public class AdaptadorPeliculasRV extends RecyclerView.Adapter<AdaptadorPelicula
                 args .putSerializable("PELI", (Serializable) listaPeliculas.get(position));
                 AppCompatActivity activity = (AppCompatActivity) v.getContext();
                 FragmentoInfoPelicula fragmentoInfoPelicula = new FragmentoInfoPelicula();
-                fragmentoInfoPelicula.setArguments(args );
-                activity.getSupportFragmentManager().beginTransaction().replace(R.id.contenedor, fragmentoInfoPelicula).addToBackStack(null).commit();
+                fragmentoInfoPelicula.setArguments(args);
+                activity.getSupportFragmentManager().beginTransaction().replace(R.id.contenedor, fragmentoInfoPelicula).commit();
+//                activity.getSupportFragmentManager().beginTransaction().replace(R.id.contenedor, fragmentoInfoPelicula).addToBackStack(null).commit();
 
             }
         });

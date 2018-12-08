@@ -65,11 +65,13 @@ public class FragmentoInfoPelicula extends Fragment{
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        pelicula = (Pelicula) savedInstanceState.getSerializable("PELI");
     }
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
+            pelicula.setDirector(savedInstanceState.getSerializable("PELI").toString());
+
+
         View vista=inflater.inflate(R.layout.fragment_fragmento_info_pelicula, container, false);
 
         imageViewFoto = (ImageView) vista.findViewById(R.id.idImagen);
