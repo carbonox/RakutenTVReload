@@ -1,70 +1,131 @@
+<?xml version="1.0" encoding="utf-8"?>
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:id="@+id/LinearLayout1"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:gravity="center_horizontal"
-    android:orientation="vertical" >
+    android:orientation="vertical">
 
-
-
-    <ImageView
-        android:id="@+id/imageView1"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:paddingTop="50dp"
-        android:src="@drawable/ic_launcher_background"
-        android:contentDescription="@string/app_name"/>
-
-
-
-    <LinearLayout
+    <RelativeLayout
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:orientation="vertical" >
+        android:layout_height="match_parent"
+        android:orientation="vertical">
+        <FrameLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent">
+            <ImageView
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:src="@mipmap/background"
+                android:scaleType="centerCrop"/>
 
-        <TextView
-            android:id="@+id/textView1"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_gravity="right"
-            android:text="Email:"
-            android:textAppearance="?android:attr/textAppearanceLarge" />
+            <android.support.design.widget.TextInputLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content">
 
-        <EditText
-            android:id="@+id/edtEmail"
+            </android.support.design.widget.TextInputLayout>
+
+        </FrameLayout>
+
+
+
+
+        <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:ems="10"
-            android:inputType="textEmailAddress" >
+            android:orientation="vertical" >
 
-            <requestFocus />
-        </EditText>
+            <ImageView
+                android:id="@+id/imageView1"
+                android:layout_width="220dp"
+                android:layout_height="247dp"
+                android:layout_gravity="center"
+                android:layout_marginBottom="50sp"
+                android:backgroundTintMode="add"
+                android:contentDescription="@string/app_name"
+                android:hapticFeedbackEnabled="false"
+                android:paddingTop="50dp"
+                android:src="@drawable/logo_rakuten" />
 
-        <TextView
-            android:id="@+id/textView2"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_gravity="right"
-            android:text="Pass:"
-            android:textAppearance="?android:attr/textAppearanceLarge" />
+            <android.support.design.widget.TextInputLayout
+                android:id="@+id/layoutEdtEmail"
+                android:layout_width="200sp"
+                android:layout_height="match_parent"
+                android:layout_gravity="center"
+                android:outlineAmbientShadowColor="@color/rojoRakuten"
+                android:outlineSpotShadowColor="@color/rojoRakuten"
+                android:paddingBottom="20sp"
+                android:textColorHint="@color/blancoRakuten"
+                app:boxBackgroundColor="@color/rojoRakuten"
+                app:boxStrokeColor="@color/rojoRakuten">
 
-        <EditText
-            android:id="@+id/edtPass"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:ems="10"
-            android:inputType="textPassword"/>
+                <requestFocus
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content" />
+
+                <android.support.design.widget.TextInputEditText
+                    android:id="@+id/edtEmail"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:gravity="center"
+                    android:hint="Nick"
+                    android:textColor="@color/blancoRakuten"
+                    android:textColorHighlight="@color/rojoRakuten"
+                    android:textColorHint="@color/blancoRakuten"
+                    android:textColorLink="@color/rojoRakuten" />
+            </android.support.design.widget.TextInputLayout>
 
 
+            <android.support.design.widget.TextInputLayout
+                android:id="@+id/layoutEdtPass"
+                android:layout_width="200sp"
+                android:layout_height="match_parent"
+                android:layout_gravity="center"
+                android:outlineAmbientShadowColor="@color/rojoRakuten"
+                android:outlineSpotShadowColor="@color/rojoRakuten"
+                android:paddingBottom="20sp"
+                android:textColorHint="@color/blancoRakuten"
+                app:boxBackgroundColor="@color/rojoRakuten"
+                app:boxStrokeColor="@color/rojoRakuten">
 
-        <Button
-            android:id="@+id/btnEnviar"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_gravity="right"
-            android:text="Enviar" />
+                <android.support.design.widget.TextInputEditText
+                    android:id="@+id/edtPass"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:gravity="center"
+                    android:hint="Contraseña"
+                    android:textColor="@color/blancoRakuten"
+                    android:textColorHighlight="@color/rojoRakuten"
+                    android:textColorHint="@color/blancoRakuten" />
+            </android.support.design.widget.TextInputLayout>
 
-    </LinearLayout>
+            <Button
+                android:id="@+id/btnEnviar"
+                android:layout_width="200sp"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center"
+                android:text="LOGIN" />
+
+            <Button
+                android:id="@+id/btnEnviarInvitado"
+                android:layout_width="200sp"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center"
+                android:text="INVITADO"
+                android:textIsSelectable="false"
+                android:typeface="sans" />
+
+            <Button
+                android:id="@+id/btnEnviarRegistro"
+                android:layout_width="200sp"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center"
+                android:text="CREAR CUENTA" />
+
+        </LinearLayout>
+    </RelativeLayout>
+
 
 </LinearLayout>

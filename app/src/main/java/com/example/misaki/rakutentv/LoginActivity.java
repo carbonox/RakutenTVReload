@@ -6,6 +6,7 @@ import android.content.SharedPreferences;
 import android.os.AsyncTask;
 import android.os.Bundle;
 import android.preference.PreferenceManager;
+import android.support.design.widget.TextInputLayout;
 import android.util.Log;
 import android.view.View;
 import android.widget.Button;
@@ -24,9 +25,13 @@ import java.util.HashMap;
 
 
 public class LoginActivity extends Activity{
+    private TextInputLayout layoutEdtEmail;
     private EditText edtEmail;
+    private TextInputLayout layoutEdtPass;
     private EditText edtPass;
     private Button btnLogin;
+    private Button btnRegistro;
+    private Button btnInvitado;
 
     /*Singleton*/
     private static LoginActivity loginActivity;
@@ -48,6 +53,8 @@ public class LoginActivity extends Activity{
 
 
         btnLogin = (Button) findViewById(R.id.btnEnviar);
+        btnInvitado = (Button) findViewById(R.id.btnEnviarInvitado);
+        btnRegistro = (Button) findViewById(R.id.btnEnviarRegistro);
 
         btnLogin.setOnClickListener(new View.OnClickListener() {
             public void onClick(View v) {
@@ -59,6 +66,14 @@ public class LoginActivity extends Activity{
 
                 TareaSegundoPlano tarea = new TareaSegundoPlano(parametros);
                 tarea.execute("http://"+RakutenTvData.getMiIP()+":8080/RakutenTV/Controller");
+            }
+        });
+        btnInvitado.setOnClickListener(new View.OnClickListener() {
+            public void onClick(View v) {
+
+                RakutenTvData.setCliente(null);
+                Intent intent = new Intent(btnInvitado.getContext(), MainActivity.class);
+                startActivity(intent);
             }
         });
     }
@@ -126,11 +141,13 @@ public class LoginActivity extends Activity{
             try {
                 if (listaClientes != null && listaClientes.size() > 0) {
                     Cliente cliente = listaClientes.get(0);
-                    if (cliente.getId_usuario() > 0) {
+                    if (cliente.getId_usuario() > 0 && cliente.getNick().equals("") && cliente.getEmail().equals("")) {
                         RakutenTvData.setCliente(cliente);
                         Toast.makeText(LoginActivity.getInstance().getBaseContext(), "Usuario correcto. ",Toast.LENGTH_SHORT).show();
                         Intent intent = new Intent(btnLogin.getContext(), MainActivity.class);
                         startActivity(intent);
+                    }else {
+                        Toast.makeText(LoginActivity.getInstance().getBaseContext(),"Rellena los campos. ", Toast.LENGTH_SHORT).show();
                     }
                 } else {
                     Toast.makeText(LoginActivity.getInstance().getBaseContext(),"Usuario incorrecto. ", Toast.LENGTH_SHORT).show();

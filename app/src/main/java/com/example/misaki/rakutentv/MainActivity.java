@@ -11,11 +11,15 @@ import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
 import android.view.Menu;
 import android.view.MenuItem;
+import android.widget.Button;
 import android.widget.ListView;
+import android.widget.TextView;
+import android.widget.Toast;
 
 
 import com.example.misaki.rakutentv.adaptadores.AdaptadorPeliculasRV;
 import com.example.misaki.rakutentv.beans.Pelicula;
+import com.example.misaki.rakutentv.dataGlobal.RakutenTvData;
 import com.example.misaki.rakutentv.fragments.FragmentoInfoPelicula;
 import com.example.misaki.rakutentv.fragments.FragmentoListaPeliculas;
 import com.example.misaki.rakutentv.fragments.FragmentoListaPeliculasMisCompras;
@@ -36,6 +40,8 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
     private ArrayList<Pelicula> m_peliculas = new ArrayList<Pelicula>();
     private AdaptadorPeliculasRV adaptadorPeliculas;
     private ListView lv;
+    private TextView txtNick;
+    private TextView txtEmail;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -45,6 +51,13 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
         setSupportActionBar(toolbar);
 
 
+        txtNick = (TextView) findViewById(R.id.generalNick);
+        txtEmail = (TextView) findViewById(R.id.generaEmail);
+
+        if (RakutenTvData.getCliente() != null) {
+//            txtNick.setText("Hola, " + RakutenTvData.getCliente().getNick());
+//            txtEmail.setText(RakutenTvData.getCliente().getEmail());
+        }
 
         DrawerLayout drawer = (DrawerLayout) findViewById(R.id.drawer_layout);
         ActionBarDrawerToggle toggle = new ActionBarDrawerToggle(
@@ -106,9 +119,17 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
         } else if (id == R.id.nav_ranking) {
             fragmentManager.beginTransaction().replace(R.id.contenedor, new FragmentoListaPeliculasRanking()).commit();
         } else if (id == R.id.nav_fabs) {
-            fragmentManager.beginTransaction().replace(R.id.contenedor, new FragmentoListaPeliculasMisFavoritos()).commit();
+            if (RakutenTvData.getCliente() != null) {
+                fragmentManager.beginTransaction().replace(R.id.contenedor, new FragmentoListaPeliculasMisFavoritos()).commit();
+            } else {
+                Toast.makeText(getBaseContext(), "Primero Logeate!", Toast.LENGTH_LONG);
+            }
         } else if (id == R.id.nav_compras) {
-            fragmentManager.beginTransaction().replace(R.id.contenedor, new FragmentoListaPeliculasMisCompras()).commit();
+            if (RakutenTvData.getCliente() != null) {
+                fragmentManager.beginTransaction().replace(R.id.contenedor, new FragmentoListaPeliculasMisCompras()).commit();
+            } else {
+                Toast.makeText(getBaseContext(), "Primero Logeate!", Toast.LENGTH_LONG);
+            }
         }
 
         DrawerLayout drawer = (DrawerLayout) findViewById(R.id.drawer_layout);
@@ -120,7 +141,6 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
     public void onFragmentInteraction(Uri uri) {
 
     }
-
 
 
 }
