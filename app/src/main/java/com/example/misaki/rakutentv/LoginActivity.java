@@ -2,8 +2,10 @@ package com.example.misaki.rakutentv;
 
 import android.app.Activity;
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.os.AsyncTask;
 import android.os.Bundle;
+import android.preference.PreferenceManager;
 import android.util.Log;
 import android.view.View;
 import android.widget.Button;
@@ -59,6 +61,26 @@ public class LoginActivity extends Activity{
                 tarea.execute("http://"+RakutenTvData.getMiIP()+":8080/RakutenTV/Controller");
             }
         });
+    }
+
+
+    public void onPause(){
+        super.onPause();
+        SharedPreferences datosLogin = PreferenceManager.getDefaultSharedPreferences(this);
+
+        SharedPreferences.Editor she = datosLogin.edit();
+
+        she.putString("NICK", edtEmail.getText().toString());
+        she.putString("PASS", edtPass.getText().toString());
+        she.apply();
+    }
+
+    public void onResume(){
+        super.onResume();
+        SharedPreferences datosLogin = PreferenceManager.getDefaultSharedPreferences(this);
+
+        edtEmail.setText(datosLogin.getString("NICK", ""));
+        edtPass.setText(datosLogin.getString("PASS", ""));
     }
 
     class TareaSegundoPlano extends AsyncTask<String, Integer, Boolean> {
