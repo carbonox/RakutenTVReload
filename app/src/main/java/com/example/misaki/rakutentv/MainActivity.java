@@ -55,8 +55,8 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
         txtEmail = (TextView) findViewById(R.id.generaEmail);
 
         if (RakutenTvData.getCliente() != null) {
-//            txtNick.setText("Hola, " + RakutenTvData.getCliente().getNick());
-//            txtEmail.setText(RakutenTvData.getCliente().getEmail());
+            txtNick.setText("Hola, " + RakutenTvData.getCliente().getNick());
+            txtEmail.setText(RakutenTvData.getCliente().getEmail());
         }
 
         DrawerLayout drawer = (DrawerLayout) findViewById(R.id.drawer_layout);

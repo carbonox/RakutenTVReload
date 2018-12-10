@@ -141,7 +141,7 @@ public class LoginActivity extends Activity{
             try {
                 if (listaClientes != null && listaClientes.size() > 0) {
                     Cliente cliente = listaClientes.get(0);
-                    if (cliente.getId_usuario() > 0 && cliente.getNick().equals("") && cliente.getEmail().equals("")) {
+                    if (cliente.getId_usuario() > 0 && !cliente.getNick().equals("") && !cliente.getEmail().equals("")) {
                         RakutenTvData.setCliente(cliente);
                         Toast.makeText(LoginActivity.getInstance().getBaseContext(), "Usuario correcto. ",Toast.LENGTH_SHORT).show();
                         Intent intent = new Intent(btnLogin.getContext(), MainActivity.class);
