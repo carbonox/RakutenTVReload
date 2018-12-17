@@ -11,11 +11,10 @@ import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
 import android.view.Menu;
 import android.view.MenuItem;
-import android.widget.Button;
 import android.widget.ListView;
+import android.widget.SearchView;
 import android.widget.TextView;
 import android.widget.Toast;
-
 
 import com.example.misaki.rakutentv.adaptadores.AdaptadorPeliculasRV;
 import com.example.misaki.rakutentv.beans.Pelicula;
@@ -35,7 +34,8 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
         FragmentoListaPeliculasMisCompras.OnFragmentInteractionListener,
         FragmentoListaPeliculasMisFavoritos.OnFragmentInteractionListener,
         FragmentoListaPeliculasPopulares.OnFragmentInteractionListener,
-        FragmentoListaPeliculasRanking.OnFragmentInteractionListener {
+        FragmentoListaPeliculasRanking.OnFragmentInteractionListener,
+        SearchView.OnQueryTextListener {
 
     private ArrayList<Pelicula> m_peliculas = new ArrayList<Pelicula>();
     private AdaptadorPeliculasRV adaptadorPeliculas;
@@ -83,6 +83,8 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
     public boolean onCreateOptionsMenu(Menu menu) {
         // Inflate the menu; this adds items to the action bar if it is present.
         getMenuInflater().inflate(R.menu.main, menu);
+        getMenuInflater().inflate(R.menu.toolbar_buscador, menu);
+
         return true;
     }
 
@@ -140,6 +142,16 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
     @Override
     public void onFragmentInteraction(Uri uri) {
 
+    }
+
+    @Override
+    public boolean onQueryTextSubmit(String query) {
+        return false;
+    }
+
+    @Override
+    public boolean onQueryTextChange(String newText) {
+        return false;
     }
 
 
