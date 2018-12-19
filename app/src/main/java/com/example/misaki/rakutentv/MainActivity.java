@@ -9,6 +9,7 @@ import android.support.v4.widget.DrawerLayout;
 import android.support.v7.app.ActionBarDrawerToggle;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
+import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.widget.ListView;
@@ -54,10 +55,6 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
         txtNick = (TextView) findViewById(R.id.generalNick);
         txtEmail = (TextView) findViewById(R.id.generaEmail);
 
-        if (RakutenTvData.getCliente() != null) {
-//            txtNick.setText("Hola, " + RakutenTvData.getCliente().getNick());
-//            txtEmail.setText(RakutenTvData.getCliente().getEmail());
-        }
 
         DrawerLayout drawer = (DrawerLayout) findViewById(R.id.drawer_layout);
         ActionBarDrawerToggle toggle = new ActionBarDrawerToggle(
@@ -67,6 +64,20 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
 
         NavigationView navigationView = (NavigationView) findViewById(R.id.nav_view);
         navigationView.setNavigationItemSelectedListener(this);
+    }
+
+    @Override
+    protected void onPostCreate(Bundle savedInstanceState) {
+        super.onPostCreate(savedInstanceState);
+//        Log.v(TAG ,"onPostCreated");
+//        if (RakutenTvData.getCliente() != null) {
+//            txtNick.setText("Hola, " + RakutenTvData.getCliente().getNick());
+//            txtEmail.setText(RakutenTvData.getCliente().getEmail());
+//        }
+        FragmentManager fragmentManager = getSupportFragmentManager();
+
+        fragmentManager.beginTransaction().replace(R.id.contenedor, new FragmentoListaPeliculas()).commit();
+
     }
 
     @Override
@@ -82,7 +93,7 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
         // Inflate the menu; this adds items to the action bar if it is present.
-        getMenuInflater().inflate(R.menu.main, menu);
+//        getMenuInflater().inflate(R.menu.main, menu);
         getMenuInflater().inflate(R.menu.toolbar_buscador, menu);
 
         return true;
@@ -149,7 +160,7 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
 
         FragmentManager fragmentManager = getSupportFragmentManager();
         Bundle args = new Bundle();
-        args.putString("titulo", query );
+        args.putString("titulo", query);
         FragmentoListaPeliculas fragmentoListaPeliculas = new FragmentoListaPeliculas();
         fragmentoListaPeliculas.setArguments(args);
         fragmentManager.beginTransaction().replace(R.id.contenedor, fragmentoListaPeliculas).commit();
@@ -160,7 +171,7 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
     public boolean onQueryTextChange(String newText) {
         FragmentManager fragmentManager = getSupportFragmentManager();
         Bundle args = new Bundle();
-        args.putString("titulo", newText );
+        args.putString("titulo", newText);
         FragmentoListaPeliculas fragmentoListaPeliculas = new FragmentoListaPeliculas();
         fragmentoListaPeliculas.setArguments(args);
         fragmentManager.beginTransaction().replace(R.id.contenedor, fragmentoListaPeliculas).commit();

@@ -170,7 +170,7 @@ public class FragmentoListaPeliculasMisCompras extends Fragment{
                     recyclerPeliculas.setAdapter(adaptadorPeliculasRV);
 
                 } else {
-                    Toast.makeText(getActivity(), "Lista incorrecta. ", Toast.LENGTH_SHORT).show();
+                    Toast.makeText(getActivity(), "Todavía no tienes Compras", Toast.LENGTH_SHORT).show();
                 }
             } catch (Exception e) {
                 // TODO: handle exception

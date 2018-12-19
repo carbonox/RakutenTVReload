@@ -76,6 +76,14 @@ public class LoginActivity extends Activity{
                 startActivity(intent);
             }
         });
+        btnRegistro.setOnClickListener(new View.OnClickListener() {
+            public void onClick(View v) {
+
+                RakutenTvData.setCliente(null);
+                Intent intent = new Intent(btnRegistro.getContext(), RegistroActivity.class);
+                startActivity(intent);
+            }
+        });
     }
 
 

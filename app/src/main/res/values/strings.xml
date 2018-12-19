@@ -22,6 +22,7 @@
     <string name="infoScore">Foto</string>
     <string name="infoSinopsis">Foto</string>
     <string name="title_activity_info_peli">infoPeli</string>
+    <string name="title_activity_registro">RegistroActivity</string>
 
 
 </resources>
