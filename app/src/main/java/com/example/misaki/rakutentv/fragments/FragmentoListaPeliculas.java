@@ -68,9 +68,18 @@ public class FragmentoListaPeliculas extends Fragment{
         recyclerPeliculas= (RecyclerView) vista.findViewById(R.id.recyclerview_id);
         recyclerPeliculas.setLayoutManager(new GridLayoutManager(getContext(),3 ,0, false));
 
+        Bundle bundle=getArguments();
+
+
 
         HashMap<String, String> parametros = new HashMap<String, String>();
         parametros.put("ACTION", "PELICULA.FIND_ALL");
+
+        if(bundle!=null) {
+            String[] myStrings = bundle.getStringArray("titulo");
+            parametros.put("formFiltroBuscador", myStrings[0]);
+        }
+
         TareaSegundoPlano tarea = new TareaSegundoPlano(parametros);
         tarea.execute("http://" + RakutenTvData.getMiIP() + ":8080/RakutenTV/Controller?");
 

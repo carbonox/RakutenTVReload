@@ -24,13 +24,15 @@
             <LinearLayout
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
+                android:weightSum="100"
                 android:layout_marginTop="20sp"
                 android:orientation="horizontal">
 
 
                 <RelativeLayout
-                    android:layout_width="wrap_content"
-                    android:layout_height="match_parent"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="50"
                     android:orientation="vertical">
 
                     <ImageView
@@ -38,7 +40,6 @@
                         android:layout_width="163dp"
                         android:layout_height="252dp"
                         android:layout_marginLeft="10dp"
-                        android:layout_marginTop="10dp"
                         android:layout_marginRight="10dp" />
 
 
@@ -46,7 +47,9 @@
 
                 <LinearLayout
                     android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
+                    android:layout_height="match_parent"
+                    android:layout_weight="50"
+
                     android:orientation="vertical">
 
                     <TextView
@@ -105,9 +108,9 @@
                 android:layout_width="match_parent"
                 android:layout_height="215dp"
                 android:layout_alignParentBottom="true"
+                android:gravity="bottom"
                 android:orientation="horizontal"
                 tools:orientation="vertical">
-
 
 
                 <LinearLayout
@@ -132,11 +135,11 @@
                         android:layout_height="120sp"
                         android:layout_margin="10dp"
                         android:background="#ffffff"
+                        android:fadeScrollbars="false"
                         android:paddingLeft="10sp"
                         android:paddingTop="10sp"
                         android:paddingRight="6sp"
                         android:paddingBottom="10sp"
-                        android:fadeScrollbars="false"
                         android:scrollbarAlwaysDrawHorizontalTrack="true"
                         android:scrollbarAlwaysDrawVerticalTrack="true"
                         android:text="Un slgo que no se lo que hago">
@@ -150,42 +153,52 @@
 
                     </ScrollView>
 
-                    <Button
-                        android:id="@+id/idBtnComprar"
-                        android:layout_width="match_parent"
-                        android:layout_height="40sp"
-                        android:background="@drawable/btn_comprar_redondo"
-                        android:text="COMPRAR"
-                        android:textColor="#ffffff" />
-
                     <LinearLayout
                         android:layout_width="match_parent"
-                        android:layout_height="40sp"
-                        android:layout_gravity="end"
-                        android:layout_marginTop="40sp"
-                        android:foregroundGravity="bottom"
-                        android:gravity="bottom"
-                        android:orientation="horizontal">
+                        android:layout_height="match_parent"
+                        android:orientation="horizontal"
+                        android:weightSum="100">
+
+                        <Button
+                            android:id="@+id/idBtnFavorito"
+                            android:layout_width="1dp"
+                            android:layout_height="40sp"
+                            android:layout_weight="50"
+                            android:background="@drawable/btn_favorito_redondo"
+                            android:text="FAVORITO"
+                            android:textColor="#ffffff" />
+
+                        <Button
+                            android:id="@+id/idBtnComprar"
+                            android:layout_width="1dp"
+                            android:layout_height="40sp"
+                            android:layout_weight="50"
+                            android:background="@drawable/btn_comprar_redondo"
+                            android:text="COMPRAR"
+                            android:textColor="#ffffff" />
+
 
                     </LinearLayout>
+
 
                 </LinearLayout>
 
             </LinearLayout>
 
             <LinearLayout
-                android:layout_width="40dp"
-                android:layout_height="40dp"
+                android:layout_width="55dp"
+                android:layout_height="55dp"
                 android:layout_alignParentLeft="true"
-                android:layout_marginLeft="80sp"
-                android:layout_marginTop="245sp"
-                android:background="@color/rojoRakuten"
+                android:layout_marginLeft="65sp"
+                android:layout_marginTop="215dp"
+                android:background="@drawable/score_redondo"
                 android:orientation="vertical">
 
                 <TextView
                     android:id="@+id/film_title_id"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
+                    android:layout_marginTop="8dp"
                     android:gravity="center_vertical|center"
                     android:text="SCORE"
                     android:textColor="#ffffff"
@@ -196,6 +209,7 @@
                     android:id="@+id/infoScore"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
+                    android:layout_marginTop="-8dp"
                     android:gravity="center_vertical|center"
                     android:text="6"
                     android:textColor="#ffffff"
@@ -205,9 +219,7 @@
             </LinearLayout>
 
 
-
         </RelativeLayout>
-
 
 
     </android.support.v7.widget.CardView>

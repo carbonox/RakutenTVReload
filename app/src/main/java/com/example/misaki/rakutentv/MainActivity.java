@@ -124,7 +124,7 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
             if (RakutenTvData.getCliente() != null) {
                 fragmentManager.beginTransaction().replace(R.id.contenedor, new FragmentoListaPeliculasMisFavoritos()).commit();
             } else {
-                Toast.makeText(getBaseContext(), "Primero Logeate!", Toast.LENGTH_LONG);
+                Toast.makeText(this, "Primero Logeate!", Toast.LENGTH_LONG);
             }
         } else if (id == R.id.nav_compras) {
             if (RakutenTvData.getCliente() != null) {
@@ -146,11 +146,25 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
 
     @Override
     public boolean onQueryTextSubmit(String query) {
+
+        FragmentManager fragmentManager = getSupportFragmentManager();
+        Bundle args = new Bundle();
+        args.putString("titulo", query );
+        FragmentoListaPeliculas fragmentoListaPeliculas = new FragmentoListaPeliculas();
+        fragmentoListaPeliculas.setArguments(args);
+        fragmentManager.beginTransaction().replace(R.id.contenedor, fragmentoListaPeliculas).commit();
         return false;
     }
 
     @Override
     public boolean onQueryTextChange(String newText) {
+        FragmentManager fragmentManager = getSupportFragmentManager();
+        Bundle args = new Bundle();
+        args.putString("titulo", newText );
+        FragmentoListaPeliculas fragmentoListaPeliculas = new FragmentoListaPeliculas();
+        fragmentoListaPeliculas.setArguments(args);
+        fragmentManager.beginTransaction().replace(R.id.contenedor, fragmentoListaPeliculas).commit();
+
         return false;
     }
 

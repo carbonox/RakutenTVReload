@@ -25,6 +25,7 @@ import com.example.misaki.rakutentv.adaptadores.AdaptadorPeliculasRV;
 import com.example.misaki.rakutentv.beans.Cliente;
 import com.example.misaki.rakutentv.beans.Pelicula;
 import com.example.misaki.rakutentv.dataGlobal.RakutenTvData;
+import com.example.misaki.rakutentv.tools.JsonHelper;
 import com.example.misaki.rakutentv.tools.Post;
 
 import org.json.JSONArray;
@@ -37,8 +38,10 @@ import java.net.URL;
 import java.net.URLConnection;
 import java.util.ArrayList;
 import java.util.HashMap;
+import java.util.List;
+import java.util.Map;
 
-public class FragmentoInfoPelicula extends Fragment{
+public class FragmentoInfoPelicula extends Fragment {
 
 
     private static FragmentoInfoPelicula fragmentoInfoPelicula;
@@ -54,7 +57,6 @@ public class FragmentoInfoPelicula extends Fragment{
     Switch switchFav;
     Button btnComprar, btnFavorito;
     Pelicula pelicula;
-
 
 
     public FragmentoInfoPelicula() {
@@ -80,11 +82,11 @@ public class FragmentoInfoPelicula extends Fragment{
 
         pelicula = RakutenTvData.getPeliculaSeleccionado();
 
-        View vista=inflater.inflate(R.layout.fragment_fragmento_info_pelicula, container, false);
+        View vista = inflater.inflate(R.layout.fragment_fragmento_info_pelicula, container, false);
 
         imageViewFoto = (ImageView) vista.findViewById(R.id.idImagen);
         btnComprar = (Button) vista.findViewById(R.id.idBtnComprar);
-        btnFavorito = (Button) vista.findViewById(R.id.idBtnComprar);
+        btnFavorito = (Button) vista.findViewById(R.id.idBtnFavorito);
 //        switchFav = (Switch) vista.findViewById(R.id.infoFav);
 
         txtAnio = (TextView) vista.findViewById(R.id.infoAnio);
@@ -109,32 +111,37 @@ public class FragmentoInfoPelicula extends Fragment{
         btnComprar.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
+                if (RakutenTvData.getCliente() != null) {
+                    HashMap<String, String> parametros = new HashMap<String, String>();
+                    parametros.put("ACTION", "PELICULA.COMPRAR");
+                    parametros.put("inputComprarUsuario", String.valueOf(RakutenTvData.getCliente().getId_usuario()));
+                    parametros.put("inputComprarPelicula", String.valueOf(pelicula.getId_pelicula()));
 
-                HashMap<String, String> parametros = new HashMap<String, String>();
-                parametros.put("ACTION", "PELICULA.COMPRAR");
-                parametros.put("inputFavoritoUsuario", String.valueOf(RakutenTvData.getCliente().getId_usuario()));
-                parametros.put("inputFavoritoPelicula", String.valueOf(pelicula.getId_pelicula()));
-
-                TareaSegundoPlano tarea = new TareaSegundoPlano(parametros);
-                tarea.execute("http://"+RakutenTvData.getMiIP()+":8080/RakutenTV/Controller");
+                    TareaSegundoPlano tarea = new TareaSegundoPlano(parametros);
+                    tarea.execute("http://" + RakutenTvData.getMiIP() + ":8080/RakutenTV/Controller");
+                } else {
+                    Toast.makeText(LoginActivity.getInstance().getBaseContext(), "Logeate primero", Toast.LENGTH_SHORT).show();
+                }
             }
         });
         btnFavorito.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
+                if (RakutenTvData.getCliente() != null) {
+                    HashMap<String, String> parametros = new HashMap<String, String>();
+                    parametros.put("ACTION", "PELICULA.DELETE_ADD_FAVORITOS");
+                    parametros.put("inputFavoritoUsuario", String.valueOf(RakutenTvData.getCliente().getId_usuario()));
+                    parametros.put("inputFavoritoPelicula", String.valueOf(pelicula.getId_pelicula()));
 
-                HashMap<String, String> parametros = new HashMap<String, String>();
-                parametros.put("ACTION", "PELICULA.DELETE_ADD_FAVORITOS");
-                parametros.put("inputComprarUsuario", String.valueOf(RakutenTvData.getCliente().getId_usuario()));
-                parametros.put("inputComprarPelicula", String.valueOf(pelicula.getId_pelicula()));
-
-                TareaSegundoPlano2 tarea = new TareaSegundoPlano2(parametros);
-                tarea.execute("http://"+RakutenTvData.getMiIP()+":8080/RakutenTV/Controller");
+                    TareaSegundoPlano2 tarea = new TareaSegundoPlano2(parametros);
+                    tarea.execute("http://" + RakutenTvData.getMiIP() + ":8080/RakutenTV/Controller");
+                } else {
+                    Toast.makeText(LoginActivity.getInstance().getBaseContext(), "Logeate primero", Toast.LENGTH_SHORT).show();
+                }
             }
         });
         return vista;
     }
-
 
 
     // TODO: Rename method, update argument and hook method into UI event
@@ -159,7 +166,6 @@ public class FragmentoInfoPelicula extends Fragment{
         super.onDetach();
         mListener = null;
     }
-
 
 
     public interface OnFragmentInteractionListener {
@@ -244,8 +250,20 @@ public class FragmentoInfoPelicula extends Fragment{
             try {
                 Post post = new Post();
 
+                JsonHelper jsonHelper = new JsonHelper();
+
                 JSONArray result = post.getServerDataPost(parametros, url_select);
-                aniadido = Integer.parseInt(result.toString());
+
+                List list = jsonHelper.toList(result);
+
+                Map map = (Map) list.get(0);
+
+                try {
+                    aniadido = (Integer) map.get("success");
+                } catch (Exception e) {
+                    aniadido = -2000;
+                }
+
             } catch (Exception e) {
                 Log.e("log_tag", "Error in http connection " + e.toString());
                 //messageUser = "Error al conectar con el servidor. ";
@@ -267,11 +285,18 @@ public class FragmentoInfoPelicula extends Fragment{
         @Override
         protected void onPostExecute(Boolean resp) {
             try {
-                if (aniadido != -1 && aniadido == 1 ) {
-                    Toast.makeText(LoginActivity.getInstance().getBaseContext(),"Exito! Has comprado la pelicula. ", Toast.LENGTH_SHORT).show();
+                if (aniadido != -2000) {
+                    if (aniadido != 1) {
+                        Toast.makeText(LoginActivity.getInstance().getBaseContext(), "Esta pelicula ya la tienes comprada. ", Toast.LENGTH_SHORT).show();
+
+
+                    } else {
+                        Toast.makeText(LoginActivity.getInstance().getBaseContext(), "Exito! Has comprado la pelicula. ", Toast.LENGTH_SHORT).show();
+
+                    }
 
                 } else {
-                    Toast.makeText(LoginActivity.getInstance().getBaseContext(),"Esta pelicula ya la tienes comprada. ", Toast.LENGTH_SHORT).show();
+                    Toast.makeText(LoginActivity.getInstance().getBaseContext(), "Logeate primero", Toast.LENGTH_SHORT).show();
                 }
             } catch (Exception e) {
                 // TODO: handle exception
@@ -298,8 +323,20 @@ public class FragmentoInfoPelicula extends Fragment{
             try {
                 Post post = new Post();
 
+                JsonHelper jsonHelper = new JsonHelper();
+
                 JSONArray result = post.getServerDataPost(parametros, url_select);
-                aniadido = Integer.parseInt(result.toString());
+
+                List list = jsonHelper.toList(result);
+
+                Map map = (Map) list.get(0);
+
+                try {
+                    aniadido = (Integer) map.get("success");
+                } catch (Exception e) {
+                    aniadido = -2000;
+                }
+
             } catch (Exception e) {
                 Log.e("log_tag", "Error in http connection " + e.toString());
                 //messageUser = "Error al conectar con el servidor. ";
@@ -321,12 +358,19 @@ public class FragmentoInfoPelicula extends Fragment{
         @Override
         protected void onPostExecute(Boolean resp) {
             try {
-                if (aniadido != -1 && aniadido == 1 ) {
-                    Toast.makeText(LoginActivity.getInstance().getBaseContext(),"Exito! Añadido a favorito. ", Toast.LENGTH_SHORT).show();
+                if (aniadido != -2000) {
+                    if (aniadido != 1) {
+                        Toast.makeText(LoginActivity.getInstance().getBaseContext(), "Exito! Eliminado de favorito", Toast.LENGTH_SHORT).show();
 
+
+                    } else {
+                        Toast.makeText(LoginActivity.getInstance().getBaseContext(), "Exito! Añadido a favorito", Toast.LENGTH_SHORT).show();
+
+                    }
                 } else {
-                    Toast.makeText(LoginActivity.getInstance().getBaseContext(),"Exito! Eliminado de favorito. ", Toast.LENGTH_SHORT).show();
+                    Toast.makeText(LoginActivity.getInstance().getBaseContext(), "Logeate primero", Toast.LENGTH_SHORT).show();
                 }
+
             } catch (Exception e) {
                 // TODO: handle exception
                 Log.e("log_tag", "Error parsing data " + e.toString());
