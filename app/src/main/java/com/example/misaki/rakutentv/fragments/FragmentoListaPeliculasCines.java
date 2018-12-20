@@ -14,10 +14,8 @@ import android.view.ViewGroup;
 import android.widget.Toast;
 
 import com.example.misaki.rakutentv.R;
-import com.example.misaki.rakutentv.adaptadores.AdaptadorCinesRV;
 import com.example.misaki.rakutentv.adaptadores.AdaptadorPeliculasRV;
 import com.example.misaki.rakutentv.adaptadores.AdaptadorPeliculasRV2;
-import com.example.misaki.rakutentv.beans.Cine;
 import com.example.misaki.rakutentv.beans.Pelicula;
 import com.example.misaki.rakutentv.dataGlobal.RakutenTvData;
 import com.example.misaki.rakutentv.tools.Post;
@@ -27,30 +25,30 @@ import org.json.JSONArray;
 import java.util.ArrayList;
 import java.util.HashMap;
 
-public class FragmentoListaCines extends Fragment{
+public class FragmentoListaPeliculasCines extends Fragment{
 
 
-    private static FragmentoListaCines fragmentoListaPeliculas;
+    private static FragmentoListaPeliculasCines fragmentoListaPeliculas;
 
-    public static FragmentoListaCines getInstance() {
+    public static FragmentoListaPeliculasCines getInstance() {
         return fragmentoListaPeliculas;
     }
 
     private OnFragmentInteractionListener mListener;
 
     RecyclerView recyclerPeliculas;
-    ArrayList<Cine> listaCine;
-    AdaptadorCinesRV adaptadorCinesRV;
+    ArrayList<Pelicula> listaPeliculas;
+    AdaptadorPeliculasRV2 adaptadorPeliculasRV2;
 
 
 
-    public FragmentoListaCines() {
+    public FragmentoListaPeliculasCines() {
         // Required empty public constructor
     }
 
 
-    public static FragmentoListaCines newInstance(String param1, String param2) {
-        FragmentoListaCines fragment = new FragmentoListaCines();
+    public static FragmentoListaPeliculasCines newInstance(String param1, String param2) {
+        FragmentoListaPeliculasCines fragment = new FragmentoListaPeliculasCines();
         Bundle args = new Bundle();
         fragment.setArguments(args);
         return fragment;
@@ -64,18 +62,18 @@ public class FragmentoListaCines extends Fragment{
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
-        View vista=inflater.inflate(R.layout.fragment_fragmento_lista_peliculas, container, false);
+        View vista=inflater.inflate(R.layout.fragment_fragmento_lista_peliculas2, container, false);
 
-        listaCine=new ArrayList<>();
+        listaPeliculas=new ArrayList<>();
         recyclerPeliculas= (RecyclerView) vista.findViewById(R.id.recyclerview_id);
-        recyclerPeliculas.setLayoutManager(new GridLayoutManager(getContext(),3 ,1, false));
+        recyclerPeliculas.setLayoutManager(new GridLayoutManager(getContext(),3 ,0, false));
 
         Bundle bundle=getArguments();
 
 
 
         HashMap<String, String> parametros = new HashMap<String, String>();
-        parametros.put("ACTION", "PELICULA.CINES");
+        parametros.put("ACTION", "PELICULA.CINES_PELIS");
 
 //        if(bundle!=null) {
 //            String[] myStrings = bundle.getStringArray("titulo");
@@ -87,7 +85,7 @@ public class FragmentoListaCines extends Fragment{
 
 
 
-        AdaptadorCinesRV adapter=new AdaptadorCinesRV(listaCine);
+        AdaptadorPeliculasRV2 adapter=new AdaptadorPeliculasRV2(listaPeliculas);
         recyclerPeliculas.setAdapter(adapter);
 
 //        adapter.setOnItemClickListener(new AdaptadorPeliculasRV.OnItemClickListener() {
@@ -135,7 +133,7 @@ public class FragmentoListaCines extends Fragment{
 
 
     class TareaSegundoPlano extends AsyncTask<String, Integer, Boolean> {
-        private ArrayList<Cine> listaCine = null;
+        private ArrayList<Pelicula> listaPeliculas = null;
         private HashMap<String, String> parametros = null;
 
 
@@ -155,7 +153,7 @@ public class FragmentoListaCines extends Fragment{
                 Post post = new Post();
 
                 JSONArray result = post.getServerDataPost(parametros, url_select);
-                listaCine = Cine.getArrayListFromJSon(result);
+                listaPeliculas = Pelicula.getArrayListFromJSon(result);
             } catch (Exception e) {
                 Log.e("log_tag", "Error in http connection " + e.toString());
                 //messageUser = "Error al conectar con el servidor. ";
@@ -172,13 +170,13 @@ public class FragmentoListaCines extends Fragment{
         @Override
         protected void onPostExecute(Boolean resp) {
             try {
-                if (resp && listaCine != null && listaCine.size() > 0) {
-                    for (Cine cine : listaCine) {
-                        cine.setFoto("http://" + RakutenTvData.getMiIP() + ":8080/RakutenTV/" + cine.getFoto());
+                if (resp && listaPeliculas != null && listaPeliculas.size() > 0) {
+                    for (Pelicula pelicula : listaPeliculas) {
+                        pelicula.setFoto("http://" + RakutenTvData.getMiIP() + ":8080/RakutenTV/" + pelicula.getFoto());
                     }
 
-                    adaptadorCinesRV =new AdaptadorCinesRV(listaCine);
-                    recyclerPeliculas.setAdapter(adaptadorCinesRV);
+                    adaptadorPeliculasRV2 =new AdaptadorPeliculasRV2(listaPeliculas);
+                    recyclerPeliculas.setAdapter(adaptadorPeliculasRV2);
 
                 } else {
                     Toast.makeText(getActivity(), "Lista incorrecta. ", Toast.LENGTH_SHORT).show();

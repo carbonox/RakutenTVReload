@@ -20,7 +20,9 @@ import android.widget.Toast;
 import com.example.misaki.rakutentv.adaptadores.AdaptadorPeliculasRV;
 import com.example.misaki.rakutentv.beans.Pelicula;
 import com.example.misaki.rakutentv.dataGlobal.RakutenTvData;
+import com.example.misaki.rakutentv.fragments.FragmentoInfoCine;
 import com.example.misaki.rakutentv.fragments.FragmentoInfoPelicula;
+import com.example.misaki.rakutentv.fragments.FragmentoListaCines;
 import com.example.misaki.rakutentv.fragments.FragmentoListaPeliculas;
 import com.example.misaki.rakutentv.fragments.FragmentoListaPeliculasMisCompras;
 import com.example.misaki.rakutentv.fragments.FragmentoListaPeliculasMisFavoritos;
@@ -31,6 +33,8 @@ import java.util.ArrayList;
 
 public class MainActivity extends AppCompatActivity implements NavigationView.OnNavigationItemSelectedListener,
         FragmentoInfoPelicula.OnFragmentInteractionListener,
+        FragmentoInfoCine.OnFragmentInteractionListener,
+        FragmentoListaCines.OnFragmentInteractionListener,
         FragmentoListaPeliculas.OnFragmentInteractionListener,
         FragmentoListaPeliculasMisCompras.OnFragmentInteractionListener,
         FragmentoListaPeliculasMisFavoritos.OnFragmentInteractionListener,
@@ -126,6 +130,8 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
         if (id == R.id.nav_inicio) {
             fragmentManager.beginTransaction().replace(R.id.contenedor, new FragmentoListaPeliculas()).commit();
         } else if (id == R.id.nav_cines) {
+            fragmentManager.beginTransaction().replace(R.id.contenedor, new FragmentoListaCines()).commit();
+        }else if (id == R.id.nav_cines_pelis) {
             fragmentManager.beginTransaction().replace(R.id.contenedor, new FragmentoListaPeliculas()).commit();
         } else if (id == R.id.nav_polulares) {
             fragmentManager.beginTransaction().replace(R.id.contenedor, new FragmentoListaPeliculasPopulares()).commit();

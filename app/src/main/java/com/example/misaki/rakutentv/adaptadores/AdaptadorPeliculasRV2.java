@@ -30,10 +30,10 @@ import java.util.ArrayList;
 
 public class AdaptadorPeliculasRV2 extends RecyclerView.Adapter<AdaptadorPeliculasRV2.PeliculaViewHolder> {
 
-    private ArrayList<Cine> listaCines;
+    private ArrayList<Pelicula> listaPelicula;
 
-    public AdaptadorPeliculasRV2(ArrayList<Cine> listaCines) {
-        this.listaCines = listaCines;
+    public AdaptadorPeliculasRV2(ArrayList<Pelicula> listaPelicula) {
+        this.listaPelicula = listaPelicula;
     }
 
 
@@ -49,10 +49,10 @@ public class AdaptadorPeliculasRV2 extends RecyclerView.Adapter<AdaptadorPelicul
     @Override
     public void onBindViewHolder(PeliculaViewHolder holder, final int position) {
 
-        Cine cine = listaCines.get(position);
-        holder.txtNombre.setText(listaCines.get(position).getNombre());
+        Pelicula pelicula = listaPelicula.get(position);
+        holder.txtNombre.setText(listaPelicula.get(position).getTitulo());
         if (holder.foto != null) {
-            new AdaptadorPeliculasRV2.BitmapWorkerTask(holder.foto).execute(cine.getFoto());
+            new AdaptadorPeliculasRV2.BitmapWorkerTask(holder.foto).execute(pelicula.getFoto());
         }
 
         holder.cardView.setOnClickListener(new View.OnClickListener() {
@@ -60,12 +60,12 @@ public class AdaptadorPeliculasRV2 extends RecyclerView.Adapter<AdaptadorPelicul
             public void onClick(View v) {
 //                Bundle args  = new Bundle();
 //                args .putSerializable("PELI", (Serializable) listaPeliculas.get(position));
-                RakutenTvData.setCineSelecionado(listaCines.get(position));
+                RakutenTvData.setPeliculaSeleccionado(listaPelicula.get(position));
                 AppCompatActivity activity = (AppCompatActivity) v.getContext();
-                FragmentoInfoCine fragmentoInfoCine= new FragmentoInfoCine();
+                FragmentoInfoPelicula fragmentoInfoPelicula= new FragmentoInfoPelicula();
 //                fragmentoInfoPelicula.setArguments(args);
 //                activity.getSupportFragmentManager().beginTransaction().replace(R.id.contenedor, fragmentoInfoPelicula).commit();
-                activity.getSupportFragmentManager().beginTransaction().replace(R.id.contenedor, fragmentoInfoCine).addToBackStack(null).commit();
+                activity.getSupportFragmentManager().beginTransaction().replace(R.id.contenedor, fragmentoInfoPelicula).addToBackStack(null).commit();
 
             }
         });
@@ -75,7 +75,7 @@ public class AdaptadorPeliculasRV2 extends RecyclerView.Adapter<AdaptadorPelicul
 
     @Override
     public int getItemCount() {
-        return listaCines.size();
+        return listaPelicula.size();
     }
 
     public class PeliculaViewHolder extends RecyclerView.ViewHolder {

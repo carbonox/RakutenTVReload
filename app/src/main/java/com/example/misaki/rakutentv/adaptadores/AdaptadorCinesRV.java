@@ -16,6 +16,7 @@ import com.example.misaki.rakutentv.R;
 import com.example.misaki.rakutentv.beans.Cine;
 import com.example.misaki.rakutentv.beans.Pelicula;
 import com.example.misaki.rakutentv.dataGlobal.RakutenTvData;
+import com.example.misaki.rakutentv.fragments.FragmentoInfoCine;
 import com.example.misaki.rakutentv.fragments.FragmentoInfoPelicula;
 
 import java.io.IOException;
@@ -29,10 +30,10 @@ import java.util.ArrayList;
 
 public class AdaptadorCinesRV extends RecyclerView.Adapter<AdaptadorCinesRV.PeliculaViewHolder> {
 
-    private ArrayList<Pelicula> listaPeliculas;
+    private ArrayList<Cine> listaCines;
 
-    public AdaptadorCinesRV(ArrayList<Cine> listaCine) {
-        this.listaPeliculas = listaPeliculas;
+    public AdaptadorCinesRV(ArrayList<Cine> listaCines) {
+        this.listaCines = listaCines;
     }
 
 
@@ -41,17 +42,17 @@ public class AdaptadorCinesRV extends RecyclerView.Adapter<AdaptadorCinesRV.Peli
 
         View view;
         LayoutInflater mInflater = LayoutInflater.from(parent.getContext());
-        view = mInflater.inflate(R.layout.cardview_item_film, parent, false);
+        view = mInflater.inflate(R.layout.cardview_item_film2, parent, false);
         return new PeliculaViewHolder(view);
     }
 
     @Override
     public void onBindViewHolder(PeliculaViewHolder holder, final int position) {
 
-        Pelicula pelicula = listaPeliculas.get(position);
-        holder.txtNombre.setText(listaPeliculas.get(position).getTitulo());
+        Cine cine= listaCines.get(position);
+        holder.txtNombre.setText(listaCines.get(position).getNombre());
         if (holder.foto != null) {
-            new AdaptadorCinesRV.BitmapWorkerTask(holder.foto).execute(pelicula.getFoto());
+            new AdaptadorCinesRV.BitmapWorkerTask(holder.foto).execute(cine.getFoto());
         }
 
         holder.cardView.setOnClickListener(new View.OnClickListener() {
@@ -59,12 +60,12 @@ public class AdaptadorCinesRV extends RecyclerView.Adapter<AdaptadorCinesRV.Peli
             public void onClick(View v) {
 //                Bundle args  = new Bundle();
 //                args .putSerializable("PELI", (Serializable) listaPeliculas.get(position));
-                RakutenTvData.setPeliculaSeleccionado(listaPeliculas.get(position));
+                RakutenTvData.setCineSelecionado(listaCines.get(position));
                 AppCompatActivity activity = (AppCompatActivity) v.getContext();
-                FragmentoInfoPelicula fragmentoInfoPelicula = new FragmentoInfoPelicula();
+                FragmentoInfoCine fragmentoInfoCine = new FragmentoInfoCine();
 //                fragmentoInfoPelicula.setArguments(args);
 //                activity.getSupportFragmentManager().beginTransaction().replace(R.id.contenedor, fragmentoInfoPelicula).commit();
-                activity.getSupportFragmentManager().beginTransaction().replace(R.id.contenedor, fragmentoInfoPelicula).addToBackStack(null).commit();
+                activity.getSupportFragmentManager().beginTransaction().replace(R.id.contenedor, fragmentoInfoCine).addToBackStack(null).commit();
 
             }
         });
@@ -74,7 +75,7 @@ public class AdaptadorCinesRV extends RecyclerView.Adapter<AdaptadorCinesRV.Peli
 
     @Override
     public int getItemCount() {
-        return listaPeliculas.size();
+        return listaCines.size();
     }
 
     public class PeliculaViewHolder extends RecyclerView.ViewHolder {
@@ -84,9 +85,9 @@ public class AdaptadorCinesRV extends RecyclerView.Adapter<AdaptadorCinesRV.Peli
 
         public PeliculaViewHolder(View itemView) {
             super(itemView);
-            cardView = (CardView) itemView.findViewById(R.id.cardview_id);
-            txtNombre = (TextView) itemView.findViewById(R.id.film_title_id);
-            foto = (ImageView) itemView.findViewById(R.id.film_img_id);
+            cardView = (CardView) itemView.findViewById(R.id.cardview_id_cine);
+            txtNombre = (TextView) itemView.findViewById(R.id.cine_nombre_id);
+            foto = (ImageView) itemView.findViewById(R.id.cine_img_id);
         }
     }
 
