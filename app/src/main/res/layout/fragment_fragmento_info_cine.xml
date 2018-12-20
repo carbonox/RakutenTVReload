@@ -1,0 +1,200 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:card_view="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/framentoInfoCine"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@android:color/white"
+    android:orientation="vertical">
+
+    <android.support.v7.widget.CardView
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:layout_margin="20sp"
+        card_view:cardBackgroundColor="#ece7e7"
+        card_view:cardCornerRadius="20sp">
+
+        <RelativeLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:orientation="vertical">
+
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:weightSum="100"
+                android:layout_marginTop="20sp"
+                android:orientation="horizontal">
+
+
+                <RelativeLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="50"
+                    android:orientation="vertical">
+
+                    <ImageView
+                        android:id="@+id/idImagenCine"
+                        android:layout_width="163dp"
+                        android:layout_height="180dp"
+                        android:layout_marginLeft="10dp"
+                        android:layout_marginRight="10dp" />
+
+
+                </RelativeLayout>
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:layout_weight="50"
+
+                    android:orientation="vertical">
+
+                    <TextView
+                        android:id="@+id/infoNombreCine"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:text="Koe no Katachi"
+                        android:textSize="25sp"
+                        android:textStyle="bold" />
+
+
+                    <TextView
+                        android:id="@+id/infoTelefonoCine"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_marginEnd="10dp"
+                        android:layout_marginBottom="15dp"
+                        android:text="Ni Idea"
+                        android:textSize="14sp"
+                        android:textStyle="bold" />
+
+
+                </LinearLayout>
+
+
+            </LinearLayout>
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="215dp"
+                android:layout_alignParentBottom="true"
+                android:gravity="bottom"
+                android:orientation="horizontal"
+                tools:orientation="vertical">
+
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:orientation="vertical">
+
+                    <TextView
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_marginRight="35sp"
+                        android:gravity="right"
+                        android:text="Sinopsis"
+                        android:textSize="18sp"
+                        android:textStyle="italic"
+                        android:visibility="visible" />
+
+
+                    <ScrollView
+                        android:id="@+id/infoScroll"
+                        android:layout_width="match_parent"
+                        android:layout_height="120sp"
+                        android:layout_margin="10dp"
+                        android:background="#ffffff"
+                        android:fadeScrollbars="false"
+                        android:paddingLeft="10sp"
+                        android:paddingTop="10sp"
+                        android:paddingRight="6sp"
+                        android:paddingBottom="10sp"
+                        android:scrollbarAlwaysDrawHorizontalTrack="true"
+                        android:scrollbarAlwaysDrawVerticalTrack="true"
+                        android:text="Un slgo que no se lo que hago">
+
+                        <TextView
+                            android:id="@+id/infoSinopsisCine"
+                            android:layout_width="match_parent"
+                            android:layout_height="match_parent"
+                            android:text="6"
+                            android:textSize="16sp" />
+
+                    </ScrollView>
+
+                    <!--<LinearLayout-->
+                        <!--android:layout_width="match_parent"-->
+                        <!--android:layout_height="match_parent"-->
+                        <!--android:orientation="horizontal"-->
+                        <!--android:weightSum="100">-->
+
+                        <!--<Button-->
+                            <!--android:id="@+id/idBtnFavorito"-->
+                            <!--android:layout_width="1dp"-->
+                            <!--android:layout_height="40sp"-->
+                            <!--android:layout_weight="50"-->
+                            <!--android:background="@drawable/btn_favorito_redondo"-->
+                            <!--android:text="FAVORITO"-->
+                            <!--android:textColor="#ffffff" />-->
+
+                        <!--<Button-->
+                            <!--android:id="@+id/idBtnComprar"-->
+                            <!--android:layout_width="1dp"-->
+                            <!--android:layout_height="40sp"-->
+                            <!--android:layout_weight="50"-->
+                            <!--android:background="@drawable/btn_comprar_redondo"-->
+                            <!--android:text="COMPRAR"-->
+                            <!--android:textColor="#ffffff" />-->
+
+
+                    <!--</LinearLayout>-->
+
+
+                </LinearLayout>
+
+            </LinearLayout>
+
+            <!--<LinearLayout-->
+                <!--android:layout_width="55dp"-->
+                <!--android:layout_height="55dp"-->
+                <!--android:layout_alignParentLeft="true"-->
+                <!--android:layout_marginLeft="65sp"-->
+                <!--android:layout_marginTop="215dp"-->
+                <!--android:background="@drawable/score_redondo"-->
+                <!--android:orientation="vertical">-->
+
+                <!--<TextView-->
+                    <!--android:id="@+id/film_title_id"-->
+                    <!--android:layout_width="match_parent"-->
+                    <!--android:layout_height="wrap_content"-->
+                    <!--android:layout_marginTop="8dp"-->
+                    <!--android:gravity="center_vertical|center"-->
+                    <!--android:text="SCORE"-->
+                    <!--android:textColor="#ffffff"-->
+                    <!--android:textSize="10sp"-->
+                    <!--android:visibility="visible" />-->
+
+                <!--<TextView-->
+                    <!--android:id="@+id/infoScore"-->
+                    <!--android:layout_width="match_parent"-->
+                    <!--android:layout_height="wrap_content"-->
+                    <!--android:layout_marginTop="-8dp"-->
+                    <!--android:gravity="center_vertical|center"-->
+                    <!--android:text="6"-->
+                    <!--android:textColor="#ffffff"-->
+                    <!--android:textSize="35sp" />-->
+
+
+            <!--</LinearLayout>-->
+
+
+        </RelativeLayout>
+
+
+    </android.support.v7.widget.CardView>
+
+</LinearLayout>

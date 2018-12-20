@@ -125,6 +125,8 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
 
         if (id == R.id.nav_inicio) {
             fragmentManager.beginTransaction().replace(R.id.contenedor, new FragmentoListaPeliculas()).commit();
+        } else if (id == R.id.nav_cines) {
+            fragmentManager.beginTransaction().replace(R.id.contenedor, new FragmentoListaPeliculas()).commit();
         } else if (id == R.id.nav_polulares) {
             fragmentManager.beginTransaction().replace(R.id.contenedor, new FragmentoListaPeliculasPopulares()).commit();
         } else if (id == R.id.nav_ranking) {
